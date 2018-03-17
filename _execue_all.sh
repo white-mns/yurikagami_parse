@@ -3,7 +3,7 @@
 CURENT=`pwd`	#実行ディレクトリの保存
 cd `dirname $0`	#解析コードのあるディレクトリで作業をする
 
-for ((RESULT_NO=$1;RESULT_NO < $2;RESULT_NO++)) {
+for ((RESULT_NO=$1;RESULT_NO <= $2;RESULT_NO++)) {
     for ((GENERATE_NO=5;GENERATE_NO >=0;GENERATE_NO--)) {
         RESULT_NO0=`printf "%02d" $RESULT_NO`
         
