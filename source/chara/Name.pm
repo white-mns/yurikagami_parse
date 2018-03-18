@@ -83,15 +83,12 @@ sub GetData{
 sub GetNameData{
     my $self  = shift;
     my $sttitle_node = shift;
-    my ($name, $name2) = ("", "");
+    my $name = "";
 
     my $b_nodes        = &GetNode::GetNode_Tag("b", \$sttitle_node);
     my $div_post_nodes = &GetNode::GetNode_Tag_Class("div","post", \$sttitle_node);
    
     $name = $$b_nodes[0]->as_text;
-    if(@$div_post_nodes){
-        $name2 = $$div_post_nodes[0]->as_text;
-    }
 
     my @datas=($self->{ResultNo}, $self->{GenerateNo}, $self->{ENo}, $self->{SubNo}, $name);
     $self->{Datas}{Data}->AddData(join(ConstData::SPLIT, @datas));
