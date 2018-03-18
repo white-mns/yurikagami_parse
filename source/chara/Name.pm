@@ -65,12 +65,12 @@ sub GetData{
     my $self    = shift;
     my $e_no    = shift;
     my $sub_no  = shift;
-    my $sttitle_node = shift;
+    my $stat_table_node = shift;
     
     $self->{ENo}   = $e_no;
     $self->{SubNo} = $sub_no;
 
-    $self->GetNameData($sttitle_node);
+    $self->GetNameData($stat_table_node);
     
     return;
 }
@@ -81,11 +81,12 @@ sub GetData{
 #-----------------------------------#
 sub GetNameData{
     my $self  = shift;
-    my $sttitle_node = shift;
+    my $stat_table_node = shift;
     my $name = "";
 
-    my $b_nodes        = &GetNode::GetNode_Tag("b", \$sttitle_node);
-    my $div_post_nodes = &GetNode::GetNode_Tag_Class("div","post", \$sttitle_node);
+    my $sttitle_nodes  = &GetNode::GetNode_Tag_Class("td","sttitle", \$stat_table_node);
+    my $b_nodes        = &GetNode::GetNode_Tag("b", \$$sttitle_nodes[0]);
+    my $div_post_nodes = &GetNode::GetNode_Tag_Class("div","post", \$$sttitle_nodes[0]);
    
     $name = $$b_nodes[0]->as_text;
 

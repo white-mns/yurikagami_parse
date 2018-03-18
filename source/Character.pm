@@ -126,11 +126,10 @@ sub ParsePage{
     my $tree = HTML::TreeBuilder->new;
     $tree->parse($content);
 
-    my $sttitle_nodes    = &GetNode::GetNode_Tag_Class("td","sttitle", \$tree);
     my $stat_table_nodes = &GetNode::GetNode_Tag_Class("table","stat", \$tree);
 
     # データリスト取得
-    if(exists($self->{DataHandlers}{Name}))    {$self->{DataHandlers}{Name}->GetData($e_no, $f_no, $$sttitle_nodes[0])};
+    if(exists($self->{DataHandlers}{Name}))    {$self->{DataHandlers}{Name}->GetData($e_no, $f_no, $$stat_table_nodes[0])};
     if(exists($self->{DataHandlers}{Profile})) {$self->{DataHandlers}{Profile}->GetData($e_no, $f_no, $$stat_table_nodes[0])};
 
     $tree = $tree->delete;
