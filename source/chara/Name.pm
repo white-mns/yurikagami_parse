@@ -57,18 +57,17 @@ sub Init(){
 }
 
 #-----------------------------------#
-#
 #    データ取得
 #------------------------------------
 #    引数｜e_no,名前データノード
 #-----------------------------------#
 sub GetData{
-    my $self = shift;
-    my $e_no  = shift;
+    my $self    = shift;
+    my $e_no    = shift;
     my $sub_no  = shift;
     my $sttitle_node = shift;
     
-    $self->{ENo} = $e_no;
+    $self->{ENo}   = $e_no;
     $self->{SubNo} = $sub_no;
 
     $self->GetNameData($sttitle_node);
