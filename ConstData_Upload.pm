@@ -23,6 +23,7 @@ use warnings;
         use constant EXE_CHARA_STATUS  => 1;
     use constant EXE_DATA        => 1;
         use constant EXE_DATA_PROPER_NAME => 1;
+        use constant EXE_DATA_JOB_NAME    => 1;
 
     use constant SAVE_SAMEDATA    => 0;    # 0=>上書き 1=>再更新
     use constant RENEW_NO         => 0;    # 0=>上書き 1=>再更新

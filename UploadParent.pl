@@ -48,6 +48,10 @@ sub Main {
             $upload->DeleteAll('proper_names');
             $upload->Upload("./output/data/proper_name.csv", 'proper_names');
         }
+        if(ConstData::EXE_DATA_JOB_NAME){
+            $upload->DeleteAll('job_names');
+            $upload->Upload("./output/data/job_name.csv", 'job_names');
+        }
     }
     if(ConstData::EXE_CHARA){
         if(ConstData::EXE_CHARA_NAME){
