@@ -50,10 +50,12 @@ sub Init(){
     ($self->{ResultNo}, $self->{GenerateNo}, $self->{CommonDatas}) = @_;
 
     #インスタンス作成
-    $self->{DataHandlers}{ProperName}        = StoreProperName->new();
+    $self->{DataHandlers}{ProperName} = StoreProperName->new();
+    $self->{DataHandlers}{JobName}    = StoreProperName->new();
 
     #他パッケージへの引き渡し用インスタンス
-    $self->{CommonDatas}{ProperName}        = $self->{DataHandlers}{ProperName};
+    $self->{CommonDatas}{ProperName} = $self->{DataHandlers}{ProperName};
+    $self->{CommonDatas}{JobName}    = $self->{DataHandlers}{JobName};
 
     my $header_list = "";
     my $output_file = "";
@@ -64,6 +66,13 @@ sub Init(){
     ];
     $output_file = "./output/data/". "proper_name" . ".csv";
     $self->{DataHandlers}{ProperName}->Init($header_list, $output_file," ");
+
+    $header_list = [
+                "job_id",
+                "name",
+    ];
+    $output_file = "./output/data/". "job_name" . ".csv";
+    $self->{DataHandlers}{JobName}->Init($header_list, $output_file," ");
 
     return;
 }
