@@ -48,7 +48,6 @@ sub Init(){
 				"nickname",
 				"title",
 				"job",
-				"tribe",
 				"sex",
 				"age",
 				"height",
@@ -89,7 +88,7 @@ sub GetData{
 sub GetProfileData{
     my $self  = shift;
     my $stat_table_node = shift;
-    my ($nickname, $title, $job, $tribe, $sex, $age, $height, $weight) = ("", "", "", "", "", "", "");
+    my ($nickname, $title, $job, $sex, $age, $height, $weight) = ("", "", "", "", "", "", "");
 
     my $sttitle_nodes  = &GetNode::GetNode_Tag_Class("td","sttitle", \$stat_table_node);
     my $div_post_nodes = &GetNode::GetNode_Tag_Class("div","post", \$$sttitle_nodes[0]);
@@ -106,8 +105,6 @@ sub GetProfileData{
 			$title = $th_node->right->as_text;
 		}elsif($text eq "職業"){
 			$job = $th_node->right->as_text;
-		}elsif($text eq "種族"){
-            $tribe = $self->{CommonDatas}{ProperName}->GetOrAddId($th_node->right->as_text);
 		}elsif($text eq "性別"){
 			$sex = $th_node->right->as_text;
 		}elsif($text eq "年齢"){
@@ -119,7 +116,7 @@ sub GetProfileData{
 		}
 	}
 
-    my @datas=($self->{ResultNo}, $self->{GenerateNo}, $self->{ENo}, $self->{SubNo}, $nickname, $title, $job, $tribe, $sex, $age, $height, $weight);
+    my @datas=($self->{ResultNo}, $self->{GenerateNo}, $self->{ENo}, $self->{SubNo}, $nickname, $title, $job, $sex, $age, $height, $weight);
     $self->{Datas}{Data}->AddData(join(ConstData::SPLIT, @datas));
 
     return;
