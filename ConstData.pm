@@ -26,6 +26,7 @@ use warnings;
         use constant EXE_CHARA_PROFILE => 1;
         use constant EXE_CHARA_STATUS  => 1;
         use constant EXE_CHARA_ITEM    => 1;
+        use constant EXE_CHARA_SKILL   => 1;
     
     use constant LOCAL      => 0;
     use constant EXE_OUTCSV => 1;    # CSV出力
