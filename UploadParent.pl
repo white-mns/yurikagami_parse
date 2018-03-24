@@ -52,6 +52,10 @@ sub Main {
             $upload->DeleteAll('job_names');
             $upload->Upload("./output/data/job_name.csv", 'job_names');
         }
+        if(ConstData::EXE_DATA_SKILL_DATA){
+            $upload->DeleteAll('skill_data');
+            $upload->Upload("./output/data/skill_data.csv", 'skill_data');
+        }
     }
     if(ConstData::EXE_CHARA){
         if(ConstData::EXE_CHARA_NAME){
