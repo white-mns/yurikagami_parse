@@ -74,6 +74,10 @@ sub Main {
             $upload->DeleteSameResult('items', $result_no, $generate_no);
             $upload->Upload("./output/chara/item_" . $result_no . "_" . $generate_no . ".csv", 'items');
         }
+        if(ConstData::EXE_CHARA_SKILL){
+            $upload->DeleteSameResult('skills', $result_no, $generate_no);
+            $upload->Upload("./output/chara/skill_" . $result_no . "_" . $generate_no . ".csv", 'skills');
+        }
     }
 
     print "result_no:$result_no,generate_no:$generate_no\n";
