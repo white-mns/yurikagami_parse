@@ -111,7 +111,7 @@ sub GetItemData{
         if($td_nodes[2]->as_text =~ /(\d+)\/(.+)/){
             $at = $1;
             my $ct_text = $2;
-            $ct = ($ct_text =~ /\//) ? -1 : $ct_text; # 流星の舞など追撃を行うものはCT不明とする
+            $ct = ($ct_text =~ /\//) ? -2 : $ct_text; # 流星の舞など追撃を行うものは表示上で多段攻撃とする
 
         }else {
             $timing = $self->{CommonDatas}{ProperName}->GetOrAddId($td_nodes[2]->as_text);
