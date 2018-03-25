@@ -56,6 +56,10 @@ sub Main {
             $upload->DeleteAll('skill_data');
             $upload->Upload("./output/data/skill_data.csv", 'skill_data');
         }
+        if(ConstData::EXE_DATA_LEARNABLE_SKILL){
+            $upload->DeleteAll('learnable_skills');
+            $upload->Upload("./output/data/learnable_skill.csv", 'learnable_skills');
+        }
     }
     if(ConstData::EXE_CHARA){
         if(ConstData::EXE_CHARA_NAME){
