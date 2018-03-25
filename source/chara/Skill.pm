@@ -66,14 +66,12 @@ sub GetData{
     my $self    = shift;
     my $e_no    = shift;
     my $sub_no  = shift;
-    my $item_table_node = shift;
-    
-    if($sub_no > 0) {return;} # サブキャラのアイテムはメインと共有のため処理しない
+    my $skill_table_node = shift;
     
     $self->{ENo}   = $e_no;
     $self->{SubNo} = $sub_no;
 
-    $self->GetItemData($item_table_node);
+    $self->GetSkillData($skill_table_node);
     
     return;
 }
@@ -82,11 +80,11 @@ sub GetData{
 #------------------------------------
 #    引数｜アイテムノード
 #-----------------------------------#
-sub GetItemData{
+sub GetSkillData{
     my $self  = shift;
-    my $item_table_node = shift;
+    my $skill_table_node = shift;
 
-    my $tr_nodes = &GetNode::GetNode_Tag("tr", \$item_table_node);
+    my $tr_nodes = &GetNode::GetNode_Tag("tr", \$skill_table_node);
     my $auto_no  = 10000;
     shift(@$tr_nodes);
    
