@@ -86,6 +86,10 @@ sub Main {
             $upload->DeleteSameResult('events', $result_no, $generate_no);
             $upload->Upload("./output/chara/event_" . $result_no . "_" . $generate_no . ".csv", 'events');
         }
+        if(ConstData::EXE_CHARA_EVENT_PROCEED){
+            $upload->DeleteSameResult('event_proceeds', $result_no, $generate_no);
+            $upload->Upload("./output/chara/event_proceed_" . $result_no . "_" . $generate_no . ".csv", 'event_proceeds');
+        }
     }
 
     print "result_no:$result_no,generate_no:$generate_no\n";
