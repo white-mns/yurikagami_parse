@@ -39,8 +39,10 @@ sub Init(){
     ($self->{ResultNo}, $self->{GenerateNo}, $self->{CommonDatas}) = @_;
     
     #初期化
-    $self->{Datas}{EventFlag} = StoreData->new();
+    $self->{Datas}{EventFlag}    = StoreData->new();
     $self->{Datas}{EventProceed} = StoreData->new();
+    $self->{Datas}{NewEvent}     = StoreData->new();
+    $self->{Datas}{AllEvent}     = StoreData->new();
     
     my $header_list = "";
     $header_list = [
@@ -66,8 +68,20 @@ sub Init(){
     ];
     $self->{Datas}{EventProceed}->Init($header_list);
     $self->{Datas}{EventProceed}->SetOutputName( "./output/chara/event_proceed_" . $self->{ResultNo} . "_" . $self->{GenerateNo} . ".csv" );
+    
+    $header_list = [
+                "result_no",
+                "generate_no",
+                "event",
+                "flag",
+    ];
+    $self->{Datas}{NewEvent}->Init($header_list);
+    $self->{Datas}{NewEvent}->SetOutputName( "./output/new/event_" . $self->{ResultNo} . "_" . $self->{GenerateNo} . ".csv" );
+    $self->{Datas}{AllEvent}->Init($header_list);
+    $self->{Datas}{AllEvent}->SetOutputName( "./output/new/all_event_" . $self->{ResultNo} . "_" . $self->{GenerateNo} . ".csv" );
 
     $self->ReadLastData();
+    $self->ReadLastNewData();
     return;
 }
 
@@ -99,6 +113,38 @@ sub ReadLastData(){
         my $flag  = $$last_datas[5];
 
         $self->{LastData}{$e_no}{$event} = $flag;
+    }
+
+    return;
+}
+
+#-----------------------------------#
+#    既存データを読み込む
+#-----------------------------------#
+sub ReadLastNewData(){
+    my $self      = shift;
+    
+    my $file_name = "";
+    # 前回結果の確定版ファイルを探索
+    for (my $i=5; $i>=0; $i--){
+        $file_name = "./output/new/all_event_" . ($self->{ResultNo} - 1) . "_" . $i . ".csv" ;
+        if(-f $file_name) {last;}
+    }
+    
+    #既存データの読み込み
+    my $content = &IO::FileRead ( $file_name );
+    
+    my @file_data = split(/\n/, $content);
+    shift (@file_data);
+    
+    foreach my  $data_set(@file_data){
+        my $new_event_datas = []; 
+        @$new_event_datas   = split(ConstData::SPLIT, $data_set);
+        my $event = $$new_event_datas[2];
+        my $flag = $$new_event_datas[3];
+        if(!exists($self->{AllEvent}{$event."_".$flag})){
+            $self->{AllEvent}{$event."_".$flag} = [$self->{ResultNo}, $self->{GenerateNo}, $event, $flag];
+        }
     }
 
     return;
@@ -159,6 +205,14 @@ sub GetEventData{
             my @datas=($self->{ResultNo}, $self->{GenerateNo}, $self->{ENo}, $self->{SubNo}, $event, $last_flag, $flag);
             $self->{Datas}{EventProceed}->AddData(join(ConstData::SPLIT, @datas));
         }
+        
+        # 進出イベント状況の取得
+        if(!exists($self->{AllEvent}{$event."_".$flag})){
+            my @new_data = ($self->{ResultNo}, $self->{GenerateNo}, $event, $flag);
+            $self->{Datas}{NewEvent}->AddData(join(ConstData::SPLIT, @new_data));
+
+            $self->{AllEvent}{$event."_".$flag} = [$self->{ResultNo}, $self->{GenerateNo}, $event, $flag];
+        }
     }
 
     return;
@@ -172,6 +226,10 @@ sub GetEventData{
 sub Output(){
     my $self = shift;
     
+    foreach my $event_flag (sort{$a cmp $b} keys %{ $self->{AllEvent} } ) {
+        $self->{Datas}{AllEvent}->AddData(join(ConstData::SPLIT, @{ $self->{AllEvent}{$event_flag} }));
+    }
+
     foreach my $object( values %{ $self->{Datas} } ) {
         $object->Output();
     }
