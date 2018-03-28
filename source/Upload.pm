@@ -22,67 +22,59 @@ use HTTP::Response;
 use DBI;
 use DBIx::Custom;
 
-use source::DbSetting;       #データベース設定呼び出し
-use ConstData_Upload;        #定数呼び出し
+use source::DbSetting; #データベース設定呼び出し
+use ConstData_Upload;  #定数呼び出し
 
 #-----------------------------------#
 #        コンストラクタ
 #-----------------------------------#
 sub new {
-    my $class  = shift;
-    my $dbi    = "";
-    my $user   = DbSetting::USER;
-    my $pass   = DbSetting::PASS;
-    my $dsn    = DbSetting::DSN;
+    my $class = shift;
   
     bless {
-        DBI   => $dbi,
-        User  => $user,
-        Pass  => $pass,
-        Dsn   => $dsn,
+        DBI   => "",
     }, $class;
 }
 
 # 宣言部    ---------------------------#
 
 sub Upload {
-    my $self       = shift;
-    my $fileName   = shift;
-    my $for_table  = shift;
+    my $self      = shift;
+    my $file_name = shift;
+    my $for_table = shift;
     
     print "Uproad to \"$for_table\"...\n";
     #読み込んだファイル内容の展開
-    if(&IO::Check($fileName)){
+    if(&IO::Check($file_name)){
         
-        $self->{FileData} = &IO::FileRead ($fileName);
-        my @fileData    = split(/\n/, $self->{FileData});
+        $self->{FileData} = &IO::FileRead ($file_name);
+        my @file_data = split(/\n/, $self->{FileData});
         
-        my $data_head    = shift(@fileData);
+        my $data_head = shift(@file_data);
         $data_head =~ s/\r\n/\n/g;
         $data_head =~ s/\r/\n/g;
         chomp($data_head);
         my @data_head    = split(ConstData::SPLIT , $data_head );#先頭情報の除去
         
-        my @dataQue        = ();
+        my @data_que        = ();
         
-        foreach my $lineData(@fileData){
+        foreach my $lineData(@file_data){
         
             #行ごとのデータを展開
-            my @oneFileData = split(ConstData::SPLIT, $lineData);
-            
+            my @one_file_data = split(ConstData::SPLIT, $lineData);
             
             #データ追加
-            if (scalar(@oneFileData)){
-                &AddArray($self, \@dataQue, \@oneFileData, \@data_head, $for_table);
+            if (scalar(@one_file_data)){
+                &AddArray($self, \@data_que, \@one_file_data, \@data_head, $for_table);
             }
             #データ100件ごとにデータ送信
-            if(scalar(@dataQue) > 100){
-                &InsertDB($self,\@dataQue,$for_table);
-                if(scalar(@oneFileData) > 2) {print $oneFileData[2] . "\n";}
-                @dataQue =();
+            if(scalar(@data_que) > 100){
+                &InsertDB($self,\@data_que,$for_table);
+                if(scalar(@one_file_data) > 2) {print $one_file_data[2] . "\n";}
+                @data_que =();
             }            
         }
-        &InsertDB($self,\@dataQue,$for_table);
+        &InsertDB($self,\@data_que,$for_table);
     }
     
 
@@ -90,19 +82,19 @@ sub Upload {
 }
 
 sub AddArray {
-    my $self       = shift;
-    my $dataQue    = shift;
-    my $addData    = shift;
-    my $data_head  = shift;
+    my $self      = shift;
+    my $data_que  = shift;
+    my $add_data  = shift;
+    my $data_head = shift;
     
     my $queData = {};
     
     my $max_data_size = scalar(@$data_head);
     
     foreach    (my $i="0";$i < $max_data_size;$i++){
-        $$queData{$$data_head[$i]} = $$addData[$i];
+        $$queData{$$data_head[$i]} = $$add_data[$i];
     }
-    push (@$dataQue, $queData);
+    push (@$data_que, $queData);
     return;
 }
 
@@ -127,11 +119,11 @@ sub GetMinimum{
 #-----------------------------------#
 sub InsertDB{
     my $self        = shift;
-    my $insertData  = shift;
-    my $tableName   = shift;
+    my $insert_data = shift;
+    my $table_name  = shift;
     
     eval {
-        $self->{DBI}->insert($insertData, table     => $tableName);
+        $self->{DBI}->insert($insert_data, table     => $table_name);
     };
     if ( $@ ){
         if ( DBI::errstr &&  DBI::errstr =~ "for key 'PRIMARY'" ){
@@ -156,10 +148,10 @@ sub InsertDB{
 #
 #-----------------------------------#
 sub DeleteAll{
-    my $self        = shift;
-    my $tableName   = shift;
+    my $self       = shift;
+    my $table_name = shift;
     
-    $self->{DBI}->delete_all( table => $tableName );
+    $self->{DBI}->delete_all( table => $table_name );
     return;
 }
 
@@ -170,13 +162,13 @@ sub DeleteAll{
 #-----------------------------------#
 sub DeleteSameDate{
     my $self       = shift;
-    my $tableName  = shift;
+    my $table_name = shift;
     my $date       = shift;
 
     print  $date . "\n";
     
     $self->{DBI}->delete(
-        table => $tableName,
+        table => $table_name,
         where => {created_at => $date,}
         );
     return;
@@ -188,12 +180,12 @@ sub DeleteSameDate{
 ##-----------------------------------#
 sub DeleteSameResult{
     my $self        = shift;
-    my $tableName   = shift;
+    my $table_name  = shift;
     my $result_no   = shift;
     my $generate_no = shift;
     
     $self->{DBI}->delete(
-            table => $tableName,
+            table => $table_name,
             where => {result_no   => $result_no,}
                       #generate_no => $generate_no,}
         );
@@ -206,15 +198,14 @@ sub DeleteSameResult{
 #
 #-----------------------------------#
 sub DBConnect {
-    my $self        = shift;
-    
+    my $self = shift;
   
     # Connect
     $self->{DBI} = DBIx::Custom->connect(
-        dsn         => $self->{Dsn},
-        user        => $self->{User},
-        password    => $self->{Pass},
-        option      => {mysql_enable_utf8 => 1},
+        dsn      => DbSetting::DSN,
+        user     => DbSetting::USER,
+        password => DbSetting::PASS,
+        option   => {mysql_enable_utf8 => 1},
     ) or die "cannot connect to MySQL: $self->{DBI}::errstr";
     
     return;

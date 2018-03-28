@@ -26,10 +26,9 @@ package StoreProperName;
 sub new {
     my $class      = shift;
     my $result_no  = shift;
-    my %datas      = ();
     
     bless {
-          Datas     => \%datas,
+          Datas     => {},
           DataNum   => 0,
     }, $class;
 }

@@ -27,11 +27,10 @@ package SkillData;
 sub new {
     my $class      = shift;
     my $result_no  = shift;
-    my %datas      = ();
     
     bless {
-          Datas     => \%datas,
-          DataNum   => 0,
+          Datas   => {},
+          DataNum => 0,
     }, $class;
 }
 

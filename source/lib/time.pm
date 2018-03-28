@@ -17,12 +17,10 @@ use Encode 'from_to';
 # コンストラクタ
 sub new {
   my $class = shift;
-  my @mesList;
-  my @timeList;
   
   bless {
-    MessageList    => \@mesList,
-    TimeList    => \@timeList,
+    MessageList => [],
+    TimeList    => [],
   }, $class;
 }
 

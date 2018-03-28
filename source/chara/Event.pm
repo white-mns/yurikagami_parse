@@ -24,10 +24,9 @@ package Event;
 #-----------------------------------#
 sub new {
   my $class = shift;
-  my %datas = ();
   
   bless {
-        Datas        => \%datas,
+        Datas => {},
   }, $class;
 }
 

@@ -21,14 +21,11 @@ package StoreHashData;
 #-----------------------------------#
 sub new {
   my $class = shift;
-  my %store_data = ();
-  my $header_data = "";
-  my $outputFileName = "";
   
   bless {
-    StoreData    => \%store_data,
-    HeaderData    =>  $header_data,
-    Output         =>  $outputFileName,
+    StoreData  => {},
+    HeaderData => "",
+    Output     => "",
   }, $class;
 }
 
@@ -38,10 +35,10 @@ sub new {
 #-----------------------------------#
 sub Init(){
     my $self        = shift;
-    my $headerList  = shift;
+    my $header_list = shift;
     
     $self->{HeaderData} = "";
-    foreach my $header(@$headerList){
+    foreach my $header(@$header_list){
         $self->{HeaderData} = $self->{HeaderData} . $header . ConstData::SPLIT;
     }
     
