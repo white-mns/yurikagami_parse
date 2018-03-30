@@ -46,6 +46,7 @@ sub Init(){
                 "generate_no",
                 "party_no",
                 "e_no",
+                "sub_no",
     ];
 
     $self->{Datas}{Data}->Init($header_list);
@@ -94,7 +95,7 @@ sub GetNameData{
     }
 
     foreach my $e_no (sort{$a <=> $b} keys(%{$self->{CommonDatas}{Party}{$self->{PartyNo}}})){
-        my @datas=($self->{ResultNo}, $self->{GenerateNo}, $self->{PartyNo}, $e_no);
+        my @datas=($self->{ResultNo}, $self->{GenerateNo}, $self->{PartyNo}, $e_no, 0);
         $self->{Datas}{Data}->AddData(join(ConstData::SPLIT, @datas));
     }
 
