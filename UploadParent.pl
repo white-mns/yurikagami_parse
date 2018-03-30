@@ -97,6 +97,12 @@ sub Main {
             $upload->Upload("./output/new/event_" . $result_no . "_" . $generate_no . ".csv", 'new_events');
         }
     }
+    if(ConstData::EXE_BATTLE){
+        if(ConstData::EXE_BATTLE_PARTY){
+            $upload->DeleteSameResult('parties', $result_no, $generate_no);
+            $upload->Upload("./output/battle/party_" . $result_no . "_" . $generate_no . ".csv", 'parties');
+        }
+    }
 
     print "result_no:$result_no,generate_no:$generate_no\n";
     return;
