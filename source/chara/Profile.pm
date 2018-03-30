@@ -119,6 +119,10 @@ sub GetProfileData{
     my @datas=($self->{ResultNo}, $self->{GenerateNo}, $self->{ENo}, $self->{SubNo}, $nickname, $title, $job, $sex, $age, $height, $weight);
     $self->{Datas}{Data}->AddData(join(ConstData::SPLIT, @datas));
 
+    # 戦闘時、ボスフラグ込での人数を出すために、通り名とボスフラグ込人数を共通変数で記録する(ボスフラグの有無はスキル一覧で改めて取得する)
+    $self->{CommonDatas}{NickName}{$self->{ENo}}{$self->{SubNo}} = $title;
+    $self->{CommonDatas}{Battler}{$self->{ENo}}{$title} = 1;
+
     return;
 }
 
