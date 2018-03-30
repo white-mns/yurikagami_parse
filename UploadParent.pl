@@ -61,6 +61,12 @@ sub Main {
             $upload->Upload("./output/data/learnable_skill.csv", 'learnable_skills');
         }
     }
+    if(ConstData::EXE_NEW){
+        if(ConstData::EXE_NEW_EVENT){
+            $upload->DeleteSameResult('new_events', $result_no, $generate_no);
+            $upload->Upload("./output/new/event_" . $result_no . "_" . $generate_no . ".csv", 'new_events');
+        }
+    }
     if(ConstData::EXE_CHARA){
         if(ConstData::EXE_CHARA_NAME){
             $upload->DeleteSameResult('names', $result_no, $generate_no);
@@ -89,12 +95,6 @@ sub Main {
         if(ConstData::EXE_CHARA_EVENT_PROCEED){
             $upload->DeleteSameResult('event_proceeds', $result_no, $generate_no);
             $upload->Upload("./output/chara/event_proceed_" . $result_no . "_" . $generate_no . ".csv", 'event_proceeds');
-        }
-    }
-    if(ConstData::EXE_NEW){
-        if(ConstData::EXE_NEW_EVENT){
-            $upload->DeleteSameResult('new_events', $result_no, $generate_no);
-            $upload->Upload("./output/new/event_" . $result_no . "_" . $generate_no . ".csv", 'new_events');
         }
     }
     if(ConstData::EXE_BATTLE){
