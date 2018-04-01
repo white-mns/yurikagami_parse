@@ -60,6 +60,10 @@ sub Main {
             $upload->DeleteAll('learnable_skills');
             $upload->Upload("./output/data/learnable_skill.csv", 'learnable_skills');
         }
+        if(ConstData::EXE_DATA_PLACE_NAME){
+            $upload->DeleteAll('place_names');
+            $upload->Upload("./output/data/place_name.csv", 'place_names');
+        }
     }
     if(ConstData::EXE_NEW){
         if(ConstData::EXE_NEW_EVENT){
@@ -105,6 +109,10 @@ sub Main {
         if(ConstData::EXE_BATTLE_PARTY_INFO){
             $upload->DeleteSameResult('party_infos', $result_no, $generate_no);
             $upload->Upload("./output/battle/party_info_" . $result_no . "_" . $generate_no . ".csv", 'party_infos');
+        }
+        if(ConstData::EXE_BATTLE_CURRENT_PLACE){
+            $upload->DeleteSameResult('current_places', $result_no, $generate_no);
+            $upload->Upload("./output/battle/current_place_" . $result_no . "_" . $generate_no . ".csv", 'current_places');
         }
     }
 
