@@ -18,7 +18,9 @@ require "./source/lib/time.pm";
 require "./source/lib/NumCode.pm";
 
 require "./source/data/StoreProperName.pm";
+require "./source/data/StoreProperData.pm";
 require "./source/data/SkillData.pm";
+require "./source/data/PlaceData.pm";
 
 use ConstData;        #定数呼び出し
 
@@ -50,7 +52,7 @@ sub Init(){
     #インスタンス作成
     $self->{DataHandlers}{ProperName} = StoreProperName->new();
     $self->{DataHandlers}{JobName}    = StoreProperName->new();
-    $self->{DataHandlers}{SkillData}  = SkillData->new();
+    $self->{DataHandlers}{SkillData}  = StoreProperData->new();
 
     #他パッケージへの引き渡し用インスタンス
     $self->{CommonDatas}{ProperName} = $self->{DataHandlers}{ProperName};
@@ -88,7 +90,7 @@ sub Init(){
                 "text",
     ];
     $output_file = "./output/data/". "skill_data" . ".csv";
-    $self->{DataHandlers}{SkillData}->Init($header_list, $output_file," ");
+    $self->{DataHandlers}{SkillData}->Init($header_list, $output_file, ["", "", "", "", "", "", "", "", "", ""]);
 
     return;
 }
