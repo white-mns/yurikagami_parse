@@ -19,8 +19,6 @@ require "./source/lib/NumCode.pm";
 
 require "./source/data/StoreProperName.pm";
 require "./source/data/StoreProperData.pm";
-require "./source/data/SkillData.pm";
-require "./source/data/PlaceData.pm";
 
 use ConstData;        #定数呼び出し
 
@@ -52,16 +50,19 @@ sub Init(){
     #インスタンス作成
     $self->{DataHandlers}{ProperName} = StoreProperName->new();
     $self->{DataHandlers}{JobName}    = StoreProperName->new();
+    $self->{DataHandlers}{PlaceName}  = StoreProperName->new();
     $self->{DataHandlers}{SkillData}  = StoreProperData->new();
 
     #他パッケージへの引き渡し用インスタンス
     $self->{CommonDatas}{ProperName} = $self->{DataHandlers}{ProperName};
     $self->{CommonDatas}{JobName}    = $self->{DataHandlers}{JobName};
+    $self->{CommonDatas}{PlaceName}  = $self->{DataHandlers}{PlaceName};
     $self->{CommonDatas}{SkillData}  = $self->{DataHandlers}{SkillData};
 
     my $header_list = "";
     my $output_file = "";
 
+    # 固有名詞の初期化
     $header_list = [
                 "proper_id",
                 "name",
@@ -69,6 +70,7 @@ sub Init(){
     $output_file = "./output/data/". "proper_name" . ".csv";
     $self->{DataHandlers}{ProperName}->Init($header_list, $output_file," ");
 
+    # 戦型名の初期化
     $header_list = [
                 "job_id",
                 "name",
@@ -76,6 +78,15 @@ sub Init(){
     $output_file = "./output/data/". "job_name" . ".csv";
     $self->{DataHandlers}{JobName}->Init($header_list, $output_file," ");
     
+    # 現在地情報の初期化
+    $header_list = [
+                "place_id",
+                "name",
+    ];
+    $output_file = "./output/data/". "place_name" . ".csv";
+    $self->{DataHandlers}{PlaceName}->Init($header_list, $output_file," ");
+
+    # 技情報の初期化
     $header_list = [
                 "skill_id",
                 "name",
@@ -90,8 +101,8 @@ sub Init(){
                 "text",
     ];
     $output_file = "./output/data/". "skill_data" . ".csv";
-    $self->{DataHandlers}{SkillData}->Init($header_list, $output_file, ["", "", "", "", "", "", "", "", "", ""]);
-
+    $self->{DataHandlers}{SkillData}->Init($header_list, $output_file, [" ", "", "", "", "", "", "", "", "", ""]);
+    
     return;
 }
 
