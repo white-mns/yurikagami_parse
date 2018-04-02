@@ -205,7 +205,7 @@ sub GetEventData{
             $self->{Datas}{EventProceed}->AddData(join(ConstData::SPLIT, @datas));
         }
         
-        # 進出イベント状況の取得
+        # 新出イベント状況の取得
         if(!exists($self->{AllEvent}{$event."_".$flag})){
             my @new_data = ($self->{ResultNo}, $self->{GenerateNo}, $event, $flag);
             $self->{Datas}{NewEvent}->AddData(join(ConstData::SPLIT, @new_data));
