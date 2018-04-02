@@ -70,6 +70,10 @@ sub Main {
             $upload->DeleteSameResult('new_events', $result_no, $generate_no);
             $upload->Upload("./output/new/event_" . $result_no . "_" . $generate_no . ".csv", 'new_events');
         }
+        if(ConstData::EXE_NEW_PLACE){
+            $upload->DeleteSameResult('new_places', $result_no, $generate_no);
+            $upload->Upload("./output/new/place_" . $result_no . "_" . $generate_no . ".csv", 'new_places');
+        }
     }
     if(ConstData::EXE_CHARA){
         if(ConstData::EXE_CHARA_NAME){

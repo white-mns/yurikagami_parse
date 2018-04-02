@@ -38,7 +38,9 @@ sub Init(){
     ($self->{ResultNo}, $self->{GenerateNo}, $self->{CommonDatas}) = @_;
     
     #初期化
-    $self->{Datas}{Data}  = StoreData->new();
+    $self->{Datas}{CurrentPlace} = StoreData->new();
+    $self->{Datas}{NewPlace}     = StoreData->new();
+    $self->{Datas}{AllPlace}     = StoreData->new();
     my $header_list = "";
    
     $header_list = [
@@ -50,10 +52,51 @@ sub Init(){
                 "inn",
     ];
 
-    $self->{Datas}{Data}->Init($header_list);
+    $self->{Datas}{CurrentPlace}->Init($header_list);
+    $self->{Datas}{CurrentPlace}->SetOutputName( "./output/battle/current_place_" . $self->{ResultNo} . "_" . $self->{GenerateNo} . ".csv" );
+
+    $header_list = [
+                "result_no",
+                "generate_no",
+                "place",
+    ];
+    $self->{Datas}{NewPlace}->Init($header_list);
+    $self->{Datas}{NewPlace}->SetOutputName( "./output/new/place_" . $self->{ResultNo} . "_" . $self->{GenerateNo} . ".csv" );
+    $self->{Datas}{AllPlace}->Init($header_list);
+    $self->{Datas}{AllPlace}->SetOutputName( "./output/new/all_place_" . $self->{ResultNo} . "_" . $self->{GenerateNo} . ".csv" );
+
+    $self->ReadLastNewData();
+    return;
+}
+
+#-----------------------------------#
+#    既存データを読み込む
+#-----------------------------------#
+sub ReadLastNewData(){
+    my $self      = shift;
     
-    #出力ファイル設定
-    $self->{Datas}{Data}->SetOutputName( "./output/battle/current_place_" . $self->{ResultNo} . "_" . $self->{GenerateNo} . ".csv" );
+    my $file_name = "";
+    # 前回結果の確定版ファイルを探索
+    for (my $i=5; $i>=0; $i--){
+        $file_name = "./output/new/all_place_" . ($self->{ResultNo} - 1) . "_" . $i . ".csv" ;
+        if(-f $file_name) {last;}
+    }
+    
+    #既存データの読み込み
+    my $content = &IO::FileRead ( $file_name );
+    
+    my @file_data = split(/\n/, $content);
+    shift (@file_data);
+    
+    foreach my  $data_set(@file_data){
+        my $new_event_datas = []; 
+        @$new_event_datas   = split(ConstData::SPLIT, $data_set);
+        my $place = $$new_event_datas[2];
+        if(!exists($self->{AllPlace}{$place})){
+            $self->{AllPlace}{$place} = [$self->{ResultNo}, $self->{GenerateNo}, $place];
+        }
+    }
+
     return;
 }
 
@@ -109,8 +152,15 @@ sub GetPartyData{
     }
 
     my @datas=($self->{ResultNo}, $self->{GenerateNo}, $self->{PartyNo}, $place_id, $shop, $inn);
-    $self->{Datas}{Data}->AddData(join(ConstData::SPLIT, @datas));
+    $self->{Datas}{CurrentPlace}->AddData(join(ConstData::SPLIT, @datas));
 
+    # 新出イベント状況の取得
+    if(!exists($self->{AllPlace}{$place_id})){
+        my @new_data = ($self->{ResultNo}, $self->{GenerateNo}, $place_id);
+        $self->{Datas}{NewPlace}->AddData(join(ConstData::SPLIT, @new_data));
+
+        $self->{AllPlace}{$place_id} = [$self->{ResultNo}, $self->{GenerateNo}, $place_id];
+    }
     return;
 }
 
@@ -122,6 +172,11 @@ sub GetPartyData{
 sub Output(){
     my $self = shift;
     
+    # 全地点情報の書き出し
+    foreach my $place (sort{$a <=> $b} keys %{ $self->{AllPlace} } ) {
+        $self->{Datas}{AllPlace}->AddData(join(ConstData::SPLIT, @{ $self->{AllPlace}{$place} }));
+    }
+
     foreach my $object( values %{ $self->{Datas} } ) {
         $object->Output();
     }
