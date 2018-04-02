@@ -225,6 +225,7 @@ sub GetEventData{
 sub Output(){
     my $self = shift;
     
+    # 全イベント情報の書き出し
     foreach my $event_flag (sort{$a cmp $b} keys %{ $self->{AllEvent} } ) {
         $self->{Datas}{AllEvent}->AddData(join(ConstData::SPLIT, @{ $self->{AllEvent}{$event_flag} }));
     }
