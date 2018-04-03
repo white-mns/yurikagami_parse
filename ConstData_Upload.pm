@@ -17,7 +17,7 @@ use warnings;
 # ▼ 実行制御 =============================================
 #      実行する場合は 1 ，実行しない場合は 0 ．
     
-    use constant EXE_CHARA       => 0;
+    use constant EXE_CHARA       => 1;
         use constant EXE_CHARA_NAME          => 1;
         use constant EXE_CHARA_PROFILE       => 1;
         use constant EXE_CHARA_STATUS        => 1;
@@ -25,7 +25,7 @@ use warnings;
         use constant EXE_CHARA_SKILL         => 1;
         use constant EXE_CHARA_EVENT         => 1;
         use constant EXE_CHARA_EVENT_PROCEED => 1;
-    use constant EXE_DATA        => 0;
+    use constant EXE_DATA        => 1;
         use constant EXE_DATA_PROPER_NAME     => 1;
         use constant EXE_DATA_JOB_NAME        => 1;
         use constant EXE_DATA_PLACE_NAME      => 1;
