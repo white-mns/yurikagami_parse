@@ -33,6 +33,7 @@ use warnings;
         use constant EXE_BATTLE_PARTY         => 1;
         use constant EXE_BATTLE_PARTY_INFO    => 1;
         use constant EXE_BATTLE_CURRENT_PLACE => 1;
+        use constant EXE_BATTLE_SMITH         => 1;
     
     use constant LOCAL      => 0;
     use constant EXE_OUTCSV => 1;    # CSV出力

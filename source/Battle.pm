@@ -21,6 +21,7 @@ require "./source/lib/NumCode.pm";
 require "./source/battle/Party.pm";
 require "./source/battle/PartyInfo.pm";
 require "./source/battle/CurrentPlace.pm";
+require "./source/battle/Smith.pm";
 
 use ConstData;        #定数呼び出し
 
@@ -55,6 +56,7 @@ sub Init(){
     if(ConstData::EXE_BATTLE_PARTY)         {$self->{DataHandlers}{Party}        = Party->new();}
     if(ConstData::EXE_BATTLE_PARTY_INFO)    {$self->{DataHandlers}{PartyInfo}    = PartyInfo->new();}
     if(ConstData::EXE_BATTLE_CURRENT_PLACE) {$self->{DataHandlers}{CurrentPlace} = CurrentPlace->new();}
+    if(ConstData::EXE_BATTLE_SMITH)         {$self->{DataHandlers}{Smith}        = Smith->new();}
 
     #初期化処理
     foreach my $object( values %{ $self->{DataHandlers} } ) {
@@ -124,11 +126,13 @@ sub ParsePage{
     my $h1_nodes          = &GetNode::GetNode_Tag("h1", \$tree);
     my $bstat_table_nodes = &GetNode::GetNode_Tag_Class("table","bstat", \$tree);
     my $map_div_nodes     = &GetNode::GetNode_Tag_Class("div","map", \$tree);
+    my $smith_div_nodes   = &GetNode::GetNode_Tag_Class("div","smith get", \$tree);
 
     # データリスト取得
     if(exists($self->{DataHandlers}{Party}))        {$self->{DataHandlers}{Party}->GetData       ($party_no, $stat_table_nodes)};
     if(exists($self->{DataHandlers}{PartyInfo}))    {$self->{DataHandlers}{PartyInfo}->GetData   ($party_no, $$h1_nodes[0], $$bstat_table_nodes[0])};
     if(exists($self->{DataHandlers}{CurrentPlace})) {$self->{DataHandlers}{CurrentPlace}->GetData($party_no, $$map_div_nodes[0])};
+    if(exists($self->{DataHandlers}{Smith}))        {$self->{DataHandlers}{Smith}->GetData       ($party_no, $smith_div_nodes)};
 
     $tree = $tree->delete;
 }

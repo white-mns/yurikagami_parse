@@ -67,6 +67,41 @@ sub Init(){
     
     #出力ファイル設定
     $self->{Datas}{Data}->SetOutputName( "./output/chara/item_" . $self->{ResultNo} . "_" . $self->{GenerateNo} . ".csv" );
+
+    $self->ReadLastData();
+    return;
+}
+
+#-----------------------------------#
+#    鍛冶素材・鍛冶結果アイテムの判定用に前回のデータを読み込む
+#-----------------------------------#
+sub ReadLastData(){
+    my $self      = shift;
+    
+    my $file_name = "";
+    # 前回結果の確定版ファイルを探索
+    for (my $i=5; $i>=0; $i--){
+        $file_name = "./output/chara/item_" . ($self->{ResultNo} - 1) . "_" . $i . ".csv" ;
+        if(-f $file_name) {last;}
+    }
+    
+    #既存データの読み込み
+    my $content = &IO::FileRead ( $file_name );
+    
+    my @file_data = split(/\n/, $content);
+    shift (@file_data);
+    
+    foreach my  $data_set(@file_data){
+        my $last_datas = []; 
+        @$last_datas   = split(ConstData::SPLIT, $data_set);
+
+        my $e_no    = $$last_datas[2];
+        my $item_no = $$last_datas[4];
+        my $name    = $$last_datas[5];
+
+        $self->{ItemLastData}{$e_no}{$item_no} = $name;
+    }
+
     return;
 }
 
@@ -166,6 +201,13 @@ sub GetItemData{
         
         my @datas=($self->{ResultNo}, $self->{GenerateNo}, $self->{ENo}, $self->{SubNo}, $item_no, $name, $kind, $effect, $effect_num, $slash, $charge, $magic, $guard, $protect, $have_rest, $have_max, $prize, $ability, $equip);
         $self->{Datas}{Data}->AddData(join(ConstData::SPLIT, @datas));
+
+        # 鍛冶結果判定用に新しくアイテム枠に入ったものだけ記録
+        if(!exists($self->{ItemLastData}{$self->{ENo}}{$item_no}) || $self->{ItemLastData}{$self->{ENo}}{$item_no} ne $name){
+            $self->{CommonDatas}{SmithItemData}{$self->{ENo}}{$item_no} = $name;
+        }
+
+        $self->{CommonDatas}{ItemData}{$self->{ENo}}{$item_no} = $name;
     }
 
     return;

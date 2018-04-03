@@ -118,6 +118,10 @@ sub Main {
             $upload->DeleteSameResult('current_places', $result_no, $generate_no);
             $upload->Upload("./output/battle/current_place_" . $result_no . "_" . $generate_no . ".csv", 'current_places');
         }
+        if(ConstData::EXE_BATTLE_SMITH){
+            $upload->DeleteSameResult('smiths', $result_no, $generate_no);
+            $upload->Upload("./output/battle/smith_" . $result_no . "_" . $generate_no . ".csv", 'smiths');
+        }
     }
 
     print "result_no:$result_no,generate_no:$generate_no\n";
