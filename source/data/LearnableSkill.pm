@@ -56,6 +56,35 @@ sub Init(){
     
     #出力ファイル設定
     $self->{Datas}{Data}->SetOutputName( "./output/data/learnable_skill.csv" );
+    
+    $self->ReadLastData("./output/data/learnable_skill.csv");
+    return;
+}
+
+#-----------------------------------#
+#    既存データを読み込む
+#-----------------------------------#
+sub ReadLastData(){
+    my $self      = shift;
+    my $file_name = shift;
+    
+    my $content = &IO::FileRead ( $file_name );
+    
+    my @file_data = split(/\n/, $content);
+    shift (@file_data);
+    
+    foreach my  $data_set(@file_data){
+        my $data = []; 
+        @$data   = split(ConstData::SPLIT, $data_set);
+
+        my $chara_type = $$data[0];
+        my $job        = $$data[1];
+        my $skill_no   = $$data[2];
+        my $sp         = $$data[3];
+        my $skill_id   = $$data[4];
+        
+        $self->{LearnableSkill}{$chara_type}{$job}{$skill_no} = [$chara_type, $job, $skill_no, $sp, $skill_id];
+    }
     return;
 }
 
@@ -74,6 +103,7 @@ sub GetData{
     $self->{SubNo} = $sub_no;
     
     if(!defined $self->{CommonDatas}{CharacterJob}){return;}
+    if($self->{ResultNo} == 2){return;} # 第2回更新のみ、技番が詰められているので処理をしない。処理をするとその後のデータも間違ったものを保持してしまうため。
 
     $self->GetLeanableSkillData($gskl_div_node);
     
