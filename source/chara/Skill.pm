@@ -152,7 +152,9 @@ sub GetSkillData{
                 $text = $td_nodes[$node_num]->as_text;
             }
         }else{
-            $text = $td_nodes[$node_num]->as_text;
+            if($td_nodes[$node_num] && $td_nodes[$node_num] =~ /HASH/){
+                $text = $td_nodes[$node_num]->as_text;
+            }
         }
 
         $skill_id = $self->{CommonDatas}{SkillData}->GetOrAddId([$skill_name, $at, $ct, $timing, $mp, $target, $range, $property, $element, $text]);
@@ -161,7 +163,7 @@ sub GetSkillData{
         $self->{Datas}{Data}->AddData(join(ConstData::SPLIT, @datas));
 
 
-        # 戦闘時、ボスフラグ込での人数を出すために、通り名とボスフラグ込人数、臆病者人数を共通変数で記録する(通り名はプロフィール一覧で取得すt)
+        # 戦闘時、ボスフラグ込での人数を出すために、通り名とボスフラグ込人数、臆病者人数を共通変数で記録する(通り名はプロフィール一覧で取得する)
         if($skill_name eq "ボスフラグ"){
             my $title = $self->{CommonDatas}{NickName}{$self->{ENo}}{$self->{SubNo}};
             $self->{CommonDatas}{Battler}{$self->{ENo}}{$title} = 2;
