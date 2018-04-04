@@ -103,7 +103,7 @@ sub GetLeanableSkillData{
         $skill_no = $td_nodes[$node_num]->as_text;
         
         my $job = $self->{CommonDatas}{CharacterJob}{$self->{ENo}."_".$self->{SubNo}}[int($skill_no / 17)];
-        $skill_no = $skill_no % 17;
+        $skill_no = (($skill_no - 1 ) % 16) + 1;
         $node_num += 1;
         
         my $skill_name = $td_nodes[$node_num]->as_text;
