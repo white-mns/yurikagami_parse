@@ -144,8 +144,10 @@ sub GetSkillData{
             if($td_nodes[$node_num]->as_text =~ /(.+)\/(.+)/){
                 my $span_nodes = &GetNode::GetNode_Tag("span", \$td_nodes[$node_num]);
                 
-                $property = $self->{CommonDatas}{ProperName}->GetOrAddId($$span_nodes[0]->as_text);
-                $element  = $self->{CommonDatas}{ProperName}->GetOrAddId($$span_nodes[1]->as_text);
+                if(scalar(@$span_nodes)){ # 第10回、第11回はspanタグで色付けされていなかったため取得しない（後の更新結果で再取得するため）
+                    $property = $self->{CommonDatas}{ProperName}->GetOrAddId($$span_nodes[0]->as_text);
+                    $element  = $self->{CommonDatas}{ProperName}->GetOrAddId($$span_nodes[1]->as_text);
+                }
                 $text = $td_nodes[$node_num+1]->as_text;
 
             }else{
