@@ -3,7 +3,7 @@
 CURENT=`pwd`	#実行ディレクトリの保存
 cd `dirname $0`	#解析コードのあるディレクトリで作業をする
 
-RESULT_NO=`printf "%02d" $1`
+RESULT_NO=`printf "%d" $1`
 GENERATE_NO=$2
 
 ZIP_NAME=${RESULT_NO}_$GENERATE_NO
