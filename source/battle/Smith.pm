@@ -141,7 +141,7 @@ sub GetSmithData{
             }
         }
         
-        #  素材名IDの取得
+        #  太字要素から、作成装備と参考装備名、素材名を取得
         #  smish get のdiv要素は正しく閉じられていないため、content_listで次のdiv要素(鍛冶後の別の行動)まで取得する
         my $it_b_nodes  = [];
         foreach my $child ($smith_div_node->content_list()){
@@ -154,6 +154,7 @@ sub GetSmithData{
         my $result_node = pop(@$it_b_nodes);
         my $main_material_node = shift(@$it_b_nodes);
 
+        # 装備のINoを名前から推測
         foreach my $i_no (keys %{$self->{CommonDatas}{ItemData}{$e_no}}){
             if($source_node->as_text eq $self->{CommonDatas}{ItemData}{$e_no}{$i_no}){
                 $source_i_no = $i_no;
@@ -165,9 +166,9 @@ sub GetSmithData{
             }
         }
 
+        # 素材INoの取得
         $main_material_name_id = $self->{CommonDatas}{ProperName}->GetOrAddId($main_material_node->as_text);
 
-        # サブ素材Inoの取得
         $i = 0;
         foreach my $it_b_node (@$it_b_nodes){
             ${$sub_material_name_ids[$i]} = $self->{CommonDatas}{ProperName}->GetOrAddId($it_b_node->as_text);
