@@ -124,6 +124,8 @@ sub GetSmithData{
         my @sub_material_name_ids = (\$sub_material_1_name_id, \$sub_material_2_name_id, \$sub_material_3_name_id, \$sub_material_4_name_id);
 
         my $smith_div_text = $smith_div_node->as_text;
+        $smith_div_text =~ s/^(.+?作成した。).+$/$1/;
+        print $smith_div_text."\n";
         if($smith_div_text =~ /\(ENo\.(\d+)\)/){
             $e_no = $1;
         }
@@ -140,7 +142,14 @@ sub GetSmithData{
         }
         
         #  素材名IDの取得
-        my $it_b_nodes  = &GetNode::GetNode_Tag_Class("b", "it", \$smith_div_node);
+        #  smish get のdiv要素は正しく閉じられていないため、content_listで次のdiv要素(鍛冶後の別の行動)まで取得する
+        my $it_b_nodes  = [];
+        foreach my $child ($smith_div_node->content_list()){
+            if($child && $child =~ /HASH/ && $child->tag eq "b" && $child->attr("class") eq "it"){
+                push (@$it_b_nodes, $child);
+            }
+        }
+
         my $source_node = shift(@$it_b_nodes);
         my $result_node = pop(@$it_b_nodes);
         my $main_material_node = shift(@$it_b_nodes);
