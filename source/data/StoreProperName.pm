@@ -111,6 +111,8 @@ sub SetId{
 sub GetOrAddId{
     my $self = shift;
     my $name = shift;
+
+    if($name eq "") {return 0;}
     
     if(!$self->{Datas}{MappingData}->CheckHaveData($name)){
         # 新しい固有名詞を記録
