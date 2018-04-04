@@ -98,17 +98,22 @@ sub GetLeanableSkillData{
         my @td_nodes = $tr_node->content_list();
         my ($skill_no, $skill_id, $at, $ct, $timing, $mp, $target, $range, $property, $element, $text)
          = (0,0,-1,-1,0,0,0,-1,0,0,"");
+        my $node_num = 0;
 
-        $skill_no = $td_nodes[0]->as_text;
+        $skill_no = $td_nodes[$node_num]->as_text;
         
         my $job = $self->{CommonDatas}{CharacterJob}{$self->{ENo}."_".$self->{SubNo}}[int($skill_no / 17)];
         $skill_no = $skill_no % 17;
+        $node_num += 1;
         
-        my $skill_name = $td_nodes[1]->as_text;
+        my $skill_name = $td_nodes[$node_num]->as_text;
+        $node_num += 1;
 
-        my $sp = $td_nodes[2]->as_text;
-        if(scalar(@td_nodes)>5){
-            if($td_nodes[3]->as_text =~ /(\d+)\/(.+)/){
+        my $sp = $td_nodes[$node_num]->as_text;
+        $node_num += 1;
+
+        if(scalar(@td_nodes)>5){ # 戦型習得はカラム数が少ないため、その分岐
+            if($td_nodes[$node_num]->as_text =~ /(\d+)\/(.+)/){
                 $at = $1;
                 my $ct_text = $2;
                 $ct = ($ct_text =~ /\//) ? -2 : $ct_text; # 流星の舞など追撃を行うものは表示上で多段攻撃とする
@@ -116,8 +121,9 @@ sub GetLeanableSkillData{
             }else {
                 $timing = $self->{CommonDatas}{ProperName}->GetOrAddId($td_nodes[3]->as_text);
             }
+            $node_num += 1;
 
-            my $mp_text = $td_nodes[4]->as_text;
+            my $mp_text = $td_nodes[$node_num]->as_text;
             if($mp_text =~ /\+/){ # 流星の舞、ベルセルクソウル等に対応
                 if($mp_text =~ /\./){
                     $mp = -1;
@@ -130,25 +136,33 @@ sub GetLeanableSkillData{
             }else{
                 $mp = $mp_text;
             }
+            $node_num += 1;
 
-            $target = $self->{CommonDatas}{ProperName}->GetOrAddId($td_nodes[5]->as_text);
-            $range = $td_nodes[6]->as_text;
-            $range = ($range =~ /-/)  ? -1 : $range;
-            $range = ($range =~ /武/) ? -2 : $range;
-            
-            if($td_nodes[7]->as_text =~ /(.+)\/(.+)/){
-                my $span_nodes = &GetNode::GetNode_Tag("span", \$td_nodes[7]);
+            if(scalar(@td_nodes)>7){ # 第10回更新より対象・射程・特性・属性が表記されたので、その有無に対応
+                $target = $self->{CommonDatas}{ProperName}->GetOrAddId($td_nodes[$node_num]->as_text);
+                $node_num += 1;
+
+                $range = $td_nodes[$node_num]->as_text;
+                $range = ($range =~ /-/)  ? -1 : $range;
+                $range = ($range =~ /武/) ? -2 : $range;
+                $node_num += 1;
                 
-                $property = $self->{CommonDatas}{ProperName}->GetOrAddId($$span_nodes[0]->as_text);
-                $element  = $self->{CommonDatas}{ProperName}->GetOrAddId($$span_nodes[1]->as_text);
-                $text = $td_nodes[8]->as_text;
+                if($td_nodes[$node_num]->as_text =~ /(.+)\/(.+)/){
+                    my $span_nodes = &GetNode::GetNode_Tag("span", \$td_nodes[$node_num]);
+                    
+                    $property = $self->{CommonDatas}{ProperName}->GetOrAddId($$span_nodes[0]->as_text);
+                    $element  = $self->{CommonDatas}{ProperName}->GetOrAddId($$span_nodes[1]->as_text);
+                    $text = $td_nodes[$node_num+1]->as_text;
 
-            }else{
-                $text = $td_nodes[7]->as_text;
+                }else{ # 自動発動、常時発動の説明取得
+                    $text = $td_nodes[$node_num]->as_text;
+                }
+            }else{ # 戦型習得の説明取得
+                $text = $td_nodes[$node_num]->as_text;
             }
         }else{
             $timing = $self->{CommonDatas}{ProperName}->GetOrAddId("戦型取得");
-            $text = $td_nodes[3]->as_text;
+            $text = $td_nodes[$node_num]->as_text;
         }
 
         $skill_id = $self->{CommonDatas}{SkillData}->GetOrAddId([$skill_name, $at, $ct, $timing, $mp, $target, $range, $property, $element, $text]);
