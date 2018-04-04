@@ -125,7 +125,7 @@ sub GetSmithData{
 
         my $smith_div_text = $smith_div_node->as_text;
         $smith_div_text =~ s/^(.+?作成した。).+$/$1/;
-        print $smith_div_text."\n";
+        
         if($smith_div_text =~ /\(ENo\.(\d+)\)/){
             $e_no = $1;
         }
