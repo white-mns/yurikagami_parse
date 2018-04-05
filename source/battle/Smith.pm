@@ -125,6 +125,9 @@ sub GetSmithData{
 
         my $smith_div_text = $smith_div_node->as_text;
         $smith_div_text =~ s/^(.+?作成した。).+$/$1/;
+        $smith_div_text =~ s/^(.+?無理だった。).+$/$1/;
+
+        $result_i_no = ($smith_div_text =~ /無理だった。/) ? -1 : 0;
         
         if($smith_div_text =~ /\(ENo\.(\d+)\)/){
             $e_no = $1;
@@ -154,10 +157,17 @@ sub GetSmithData{
         my $result_node = pop(@$it_b_nodes);
         my $main_material_node = shift(@$it_b_nodes);
 
-        # 装備のINoを名前から推測
+        # 装備のINoを名前から照合
         foreach my $i_no (keys %{$self->{CommonDatas}{ItemData}{$e_no}}){
             if($source_node->as_text eq $self->{CommonDatas}{ItemData}{$e_no}{$i_no}){
                 $source_i_no = $i_no;
+            }
+        }
+        if($source_i_no == 0){ # 作成後送品していた場合など、アイテム欄に残っていない場合は前回のアイテム欄と照合する
+            foreach my $i_no (keys %{$self->{CommonDatas}{ItemLastData}{$e_no}}){
+                if($source_node->as_text eq $self->{CommonDatas}{ItemLastData}{$e_no}{$i_no}){
+                    $source_i_no = $i_no;
+                }
             }
         }
         foreach my $i_no (keys %{$self->{CommonDatas}{SmithItemData}{$e_no}}){

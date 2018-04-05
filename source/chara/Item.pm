@@ -99,7 +99,7 @@ sub ReadLastData(){
         my $item_no = $$last_datas[4];
         my $name    = $$last_datas[5];
 
-        $self->{ItemLastData}{$e_no}{$item_no} = $name;
+        $self->{CommonDatas}{ItemLastData}{$e_no}{$item_no} = $name;
     }
 
     return;
@@ -203,7 +203,7 @@ sub GetItemData{
         $self->{Datas}{Data}->AddData(join(ConstData::SPLIT, @datas));
 
         # 鍛冶結果判定用に新しくアイテム枠に入ったものだけ記録
-        if(!exists($self->{ItemLastData}{$self->{ENo}}{$item_no}) || $self->{ItemLastData}{$self->{ENo}}{$item_no} ne $name){
+        if(!exists($self->{CommonDatas}{ItemLastData}{$self->{ENo}}{$item_no}) || $self->{CommonDatas}{ItemLastData}{$self->{ENo}}{$item_no} ne $name){
             $self->{CommonDatas}{SmithItemData}{$self->{ENo}}{$item_no} = $name;
         }
 
