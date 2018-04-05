@@ -128,6 +128,7 @@ sub GetStatusData{
 
             $self->{CommonDatas}{CharacterJob}{$self->{ENo}."_".$self->{SubNo}}[0] = $job1;
             $self->{CommonDatas}{CharacterJob}{$self->{ENo}."_".$self->{SubNo}}[1] = $job2;
+            $self->{CommonDatas}{CharacterJobName}{$self->{ENo}."_".$self->{SubNo}}[0] = $1; # 習得可能技でのハロウィン判定用
 
 		}elsif($text eq "HP"){
 			$th_node->right->as_text =~ m!(\d+)/(\d+)!;

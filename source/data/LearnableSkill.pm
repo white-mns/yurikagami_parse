@@ -1,5 +1,5 @@
 #===================================================================
-#        戦型-習得可能スキル対応取得パッケージ
+#        戦型-習得可能技対応取得パッケージ
 #-------------------------------------------------------------------
 #            (C) 2018 @white_mns
 #===================================================================
@@ -131,9 +131,18 @@ sub GetLeanableSkillData{
         my $node_num = 0;
 
         $skill_no = $td_nodes[$node_num]->as_text;
+
+        # 一部戦型は習得可能な技の数が16ではなく8のため、戦型1にあると他の戦型と比べて戦型2以降で習得可能な技noのNoが変わってしまう。
+        # これを避けるために特殊な戦型はソース上で技数を指定する。(結果の内容からは機械的に判別できない)
+        my $job_1_name = $self->{CommonDatas}{CharacterJobName}{$self->{ENo}."_".$self->{SubNo}}[0];
+        my $job_has_skill_num = ($job_1_name eq "ハロウィン") ? 8 : 16;
+        $job_has_skill_num = ($job_1_name eq "流れ者") ? 8 : $job_has_skill_num;
+        $job_has_skill_num = ($job_1_name eq "作り手") ? 8 : $job_has_skill_num;
+        $job_has_skill_num = ($job_1_name eq "標差し") ? 8 : $job_has_skill_num;
         
-        my $job = $self->{CommonDatas}{CharacterJob}{$self->{ENo}."_".$self->{SubNo}}[int($skill_no / 17)];
-        $skill_no = (($skill_no - 1 ) % 16) + 1;
+        my $job_num = ($skill_no > $job_has_skill_num) ? 1 : 0;
+        my $job = $self->{CommonDatas}{CharacterJob}{$self->{ENo}."_".$self->{SubNo}}[$job_num];
+        $skill_no = ($skill_no > $job_has_skill_num) ? $skill_no - $job_has_skill_num : $skill_no;
         $node_num += 1;
         
         my $skill_name = $td_nodes[$node_num]->as_text;
@@ -213,8 +222,8 @@ sub GetLeanableSkillData{
 sub Output(){
     my $self = shift;
     
-    foreach my $chara_type (sort{$a <=> $b} keys(%{$self->{LearnableSkill}})){ # 習得可能スキルの出力データへの変換
-        foreach my $job (sort{$a <=> $b} keys(%{$self->{LearnableSkill}{$chara_type}})){ # 習得可能スキルの出力データへの変換
+    foreach my $chara_type (sort{$a <=> $b} keys(%{$self->{LearnableSkill}})){ # 習得可能技の出力データへの変換
+        foreach my $job (sort{$a <=> $b} keys(%{$self->{LearnableSkill}{$chara_type}})){ # 習得可能技の出力データへの変換
             foreach my $skill_no (sort{$a <=> $b} keys(%{$self->{LearnableSkill}{$chara_type}{$job}})){
                 $self->{Datas}{Data}->AddData(join(ConstData::SPLIT, @{$self->{LearnableSkill}{$chara_type}{$job}{$skill_no}}));
             }
