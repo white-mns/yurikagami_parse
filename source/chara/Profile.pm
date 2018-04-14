@@ -95,14 +95,14 @@ sub GetProfileData{
     my $th_nodes       = &GetNode::GetNode_Tag("th", \$stat_table_node);
    
     if(@$div_post_nodes){
-        $nickname = $$div_post_nodes[0]->as_text;
+        $title = $$div_post_nodes[0]->as_text;
     }
 
     foreach my $th_node (@$th_nodes){
 		my $text = $th_node->as_text;
 		
         if($text eq "通名"){
-			$title = $th_node->right->as_text;
+			$nickname = $th_node->right->as_text;
 		}elsif($text eq "職業"){
 			$job = $th_node->right->as_text;
 		}elsif($text eq "性別"){
@@ -120,8 +120,8 @@ sub GetProfileData{
     $self->{Datas}{Data}->AddData(join(ConstData::SPLIT, @datas));
 
     # 戦闘時、ボスフラグ込での人数を出すために、通り名とボスフラグ込人数を共通変数で記録する(ボスフラグの有無はスキル一覧で改めて取得する)
-    $self->{CommonDatas}{NickName}{$self->{ENo}}{$self->{SubNo}} = $title;
-    $self->{CommonDatas}{Battler}{$self->{ENo}}{$title} = 1;
+    $self->{CommonDatas}{NickName}{$self->{ENo}}{$self->{SubNo}} = $nickname;
+    $self->{CommonDatas}{Battler}{$self->{ENo}}{$nickname} = 1;
 
     return;
 }
