@@ -1,0 +1,5 @@
+result_no	generate_no	last_result_no	last_generate_no	party_no	e_no	sub_no	result_i_no	source_i_no	main_material_i_no	sub_material_1_i_no	sub_material_2_i_no	sub_material_3_i_no	sub_material_4_i_no	main_material_name_id	sub_material_1_name_id	sub_material_2_name_id	sub_material_3_name_id	sub_material_4_name_id	
+34	0	33	1	7	10	0	4	10	4	6	9	7	12	248	248	248	192	187
+34	0	33	1	14	17	0	9	10	9	12	7	8	11	248	187	94	94	94
+34	0	33	1	126	161	0	8	2	8	5	9	10	0	187	94	94	94	0
+34	0	33	1	171	212	0	16	8	16	9	14	7	10	192	187	187	94	94
