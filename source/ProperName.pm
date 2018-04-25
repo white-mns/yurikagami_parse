@@ -51,12 +51,14 @@ sub Init(){
     $self->{DataHandlers}{ProperName} = StoreProperName->new();
     $self->{DataHandlers}{JobName}    = StoreProperName->new();
     $self->{DataHandlers}{PlaceName}  = StoreProperName->new();
+    $self->{DataHandlers}{EnemyName}  = StoreProperName->new();
     $self->{DataHandlers}{SkillData}  = StoreProperData->new();
 
     #他パッケージへの引き渡し用インスタンス
     $self->{CommonDatas}{ProperName} = $self->{DataHandlers}{ProperName};
     $self->{CommonDatas}{JobName}    = $self->{DataHandlers}{JobName};
     $self->{CommonDatas}{PlaceName}  = $self->{DataHandlers}{PlaceName};
+    $self->{CommonDatas}{EnemyName}  = $self->{DataHandlers}{EnemyName};
     $self->{CommonDatas}{SkillData}  = $self->{DataHandlers}{SkillData};
 
     my $header_list = "";
@@ -85,6 +87,14 @@ sub Init(){
     ];
     $output_file = "./output/data/". "place_name" . ".csv";
     $self->{DataHandlers}{PlaceName}->Init($header_list, $output_file," ");
+    
+    # 敵名の初期化
+    $header_list = [
+                "enemy_id",
+                "name",
+    ];
+    $output_file = "./output/data/". "enemy_name" . ".csv";
+    $self->{DataHandlers}{EnemyName}->Init($header_list, $output_file," ");
 
     # 技情報の初期化
     $header_list = [
