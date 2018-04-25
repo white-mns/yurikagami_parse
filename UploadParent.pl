@@ -64,6 +64,10 @@ sub Main {
             $upload->DeleteAll('place_names');
             $upload->Upload("./output/data/place_name.csv", 'place_names');
         }
+        if(ConstData::EXE_DATA_ENEMY_NAME){
+            $upload->DeleteAll('enemy_names');
+            $upload->Upload("./output/data/enemy_name.csv", 'enemy_names');
+        }
     }
     if(ConstData::EXE_NEW){
         if(ConstData::EXE_NEW_EVENT){
@@ -73,6 +77,10 @@ sub Main {
         if(ConstData::EXE_NEW_PLACE){
             $upload->DeleteSameResult('new_places', $result_no, $generate_no);
             $upload->Upload("./output/new/place_" . $result_no . "_" . $generate_no . ".csv", 'new_places');
+        }
+        if(ConstData::EXE_NEW_ENEMY){
+            $upload->DeleteSameResult('new_enemies', $result_no, $generate_no);
+            $upload->Upload("./output/new/enemy_" . $result_no . "_" . $generate_no . ".csv", 'new_enemies');
         }
     }
     if(ConstData::EXE_CHARA){
@@ -121,6 +129,14 @@ sub Main {
         if(ConstData::EXE_BATTLE_SMITH){
             $upload->DeleteSameResult('smiths', $result_no, $generate_no);
             $upload->Upload("./output/battle/smith_" . $result_no . "_" . $generate_no . ".csv", 'smiths');
+        }
+        if(ConstData::EXE_BATTLE_ENEMY){
+            $upload->DeleteSameResult('enemies', $result_no, $generate_no);
+            $upload->Upload("./output/battle/enemy_" . $result_no . "_" . $generate_no . ".csv", 'enemies');
+        }
+        if(ConstData::EXE_BATTLE_ENEMY_PARTY_INFO){
+            $upload->DeleteSameResult('enemy_party_infos', $result_no, $generate_no);
+            $upload->Upload("./output/battle/enemy_party_info_" . $result_no . "_" . $generate_no . ".csv", 'enemy_party_infos');
         }
     }
 
