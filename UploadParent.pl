@@ -78,6 +78,10 @@ sub Main {
             $upload->DeleteSameResult('new_places', $result_no, $generate_no);
             $upload->Upload("./output/new/place_" . $result_no . "_" . $generate_no . ".csv", 'new_places');
         }
+        if(ConstData::EXE_NEW_ENEMY){
+            $upload->DeleteSameResult('new_enemies', $result_no, $generate_no);
+            $upload->Upload("./output/new/enemy_" . $result_no . "_" . $generate_no . ".csv", 'new_enemies');
+        }
     }
     if(ConstData::EXE_CHARA){
         if(ConstData::EXE_CHARA_NAME){

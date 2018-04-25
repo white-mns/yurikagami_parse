@@ -40,6 +40,8 @@ sub Init(){
     #初期化
     $self->{Datas}{EnemyPartyInfo} = StoreData->new();
     $self->{Datas}{Enemy}          = StoreData->new();
+    $self->{Datas}{NewEnemy}       = StoreData->new();
+    $self->{Datas}{AllEnemy}       = StoreData->new();
 
     my $header_list = "";
    
@@ -50,6 +52,7 @@ sub Init(){
                 "enemy_num",
     ];
     $self->{Datas}{EnemyPartyInfo}->Init($header_list);
+    $self->{Datas}{EnemyPartyInfo}->SetOutputName( "./output/battle/enemy_party_info_" . $self->{ResultNo} . "_" . $self->{GenerateNo} . ".csv" );
     
     $header_list = [
                 "result_no",
@@ -59,13 +62,53 @@ sub Init(){
                 "suffix",
     ];
     $self->{Datas}{Enemy}->Init($header_list);
-    
-    #出力ファイル設定
-    $self->{Datas}{EnemyPartyInfo}->SetOutputName( "./output/battle/enemy_party_info_" . $self->{ResultNo} . "_" . $self->{GenerateNo} . ".csv" );
     $self->{Datas}{Enemy}         ->SetOutputName( "./output/battle/enemy_"       . $self->{ResultNo} . "_" . $self->{GenerateNo} . ".csv" );
+    
+    $header_list = [
+                "result_no",
+                "generate_no",
+                "enemy",
+    ];
+    $self->{Datas}{NewEnemy}->Init($header_list);
+    $self->{Datas}{NewEnemy}->SetOutputName( "./output/new/enemy_" . $self->{ResultNo} . "_" . $self->{GenerateNo} . ".csv" );
+    $self->{Datas}{AllEnemy}->Init($header_list);
+    $self->{Datas}{AllEnemy}->SetOutputName( "./output/new/all_enemy_" . $self->{ResultNo} . "_" . $self->{GenerateNo} . ".csv" );
+    
+    $self->ReadLastNewData();
+
     return;
 }
 
+#-----------------------------------#
+#    既存データを読み込む
+#-----------------------------------#
+sub ReadLastNewData(){
+    my $self      = shift;
+    
+    my $file_name = "";
+    # 前回結果の確定版ファイルを探索
+    for (my $i=5; $i>=0; $i--){
+        $file_name = "./output/new/all_enemy_" . ($self->{ResultNo} - 1) . "_" . $i . ".csv" ;
+        if(-f $file_name) {last;}
+    }
+    
+    #既存データの読み込み
+    my $content = &IO::FileRead ( $file_name );
+    
+    my @file_data = split(/\n/, $content);
+    shift (@file_data);
+    
+    foreach my  $data_set(@file_data){
+        my $new_enemy_datas = []; 
+        @$new_enemy_datas   = split(ConstData::SPLIT, $data_set);
+        my $enemy = $$new_enemy_datas[2];
+        if(!exists($self->{AllEnemy}{$enemy})){
+            $self->{AllEnemy}{$enemy} = [$self->{ResultNo}, $self->{GenerateNo}, $enemy];
+        }
+    }
+
+    return;
+}
 #-----------------------------------#
 #    データ取得
 #------------------------------------
@@ -116,6 +159,14 @@ sub GetEnemyData{
             }
 
             $self->{Enemy}{$enemy_full_name} = $enemy_full_name;
+    
+            # 新出敵の取得
+            if(!exists($self->{AllEnemy}{$enemy_id})){
+                my @new_data = ($self->{ResultNo}, $self->{GenerateNo}, $enemy_id);
+                $self->{Datas}{NewEnemy}->AddData(join(ConstData::SPLIT, @new_data));
+
+                $self->{AllEnemy}{$enemy_id} = [$self->{ResultNo}, $self->{GenerateNo}, $enemy_id];
+            }
         }
     }
 
@@ -133,6 +184,11 @@ sub GetEnemyData{
 sub Output(){
     my $self = shift;
     
+    # 全敵情報の書き出し
+    foreach my $enemy (sort{$a <=> $b} keys %{ $self->{AllEnemy} } ) {
+        $self->{Datas}{AllEnemy}->AddData(join(ConstData::SPLIT, @{ $self->{AllEnemy}{$enemy} }));
+    }
+
     foreach my $object( values %{ $self->{Datas} } ) {
         $object->Output();
     }

@@ -35,7 +35,7 @@ if [ -f ./data/orig/turn${ZIP_NAME}.zip ]; then
 fi
 
 perl ./GetData.pl $1 $2
-#perl ./UploadParent.pl $1 $2
+perl ./UploadParent.pl $1 $2
 
 # UTFファイルを圧縮
 if [ -d ./data/utf/turn${ZIP_NAME} ]; then

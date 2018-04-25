@@ -42,6 +42,7 @@ use warnings;
     use constant EXE_NEW         => 1;
         use constant EXE_NEW_EVENT => 1;
         use constant EXE_NEW_PLACE => 1;
+        use constant EXE_NEW_ENEMY => 1;
 
     use constant SAVE_SAMEDATA    => 0;    # 0=>上書き 1=>再更新
     use constant RENEW_NO         => 0;    # 0=>上書き 1=>再更新
