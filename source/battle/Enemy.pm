@@ -112,22 +112,43 @@ sub ReadLastNewData(){
 #-----------------------------------#
 #    データ取得
 #------------------------------------
-#    引数｜パーティ番号,キャラ情報データノード
+#    引数｜パーティ番号,キャラ情報データノード,クエスト情報ノード
 #-----------------------------------#
 sub GetData{
     my $self      = shift;
     my $party_no  = shift;
     my $bstat_table_nodes = shift;
+    my $quest_div_node    = shift;
     
     $self->{PartyNo} = $party_no;
     $self->{Enemy}  = {};
 
+    if($self->isPractice($quest_div_node)){ return;}
     $self->GetEnemyData($bstat_table_nodes);
     
     return;
 }
+
 #-----------------------------------#
-#    パーティ所属データ取得
+#    練習試合かどうかの判定
+#------------------------------------
+#    引数｜クエスト情報ノード
+#-----------------------------------#
+sub isPractice{
+    my $self      = shift;
+    my $quest_div_node    = shift;
+    
+    if(!$quest_div_node){ return 1;} # クエスト情報ノードがない場合、とりあえず敵の取得処理を実行する（ただし戦闘自体がないものと予想される）
+    my $text = $quest_div_node->as_text;
+    
+    if($text =~ /練習試合を申し込んだ。.+?はそれに応じた。/){ return 1;}
+    if($text =~ /PKを開始します。/){ return 1;}
+
+    return 0;
+}
+
+#-----------------------------------#
+#    敵データ取得
 #------------------------------------
 #    引数｜キャラ情報データノード
 #-----------------------------------#
