@@ -71,8 +71,8 @@ sub GetData{
     my $quest_div_node     = shift;
 
     $self->{PartyNo} = $party_no;
-
     $self->{IsPK} = ($self->isPractice($quest_div_node)) ? 1 : 0;
+
     $self->GetItemGetData($item_get_div_nodes);
     
     return;
