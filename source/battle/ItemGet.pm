@@ -120,8 +120,17 @@ sub GetItemGetData{
 
         if(scalar(@$b_nodes) < 3) {next;}
 
-        my $nickname = $$b_nodes[0]->as_text; 
-        my $enemy_id = $self->{CommonDatas}{EnemyName}->GetOrAddId($$b_nodes[1]->as_text);
+        my $nickname = $$b_nodes[0]->as_text;
+        
+        my $enemy_full_name = $$b_nodes[1]->as_text; 
+        my $enemy_name = $enemy_full_name;
+        my $suffix     = "";
+        if($enemy_full_name =~ /(.+?) (.{1,3}$)/){
+            $enemy_name = $1;
+            $suffix = $2;
+        }
+        my $enemy_id = $self->{CommonDatas}{EnemyName}->GetOrAddId($enemy_name);
+
         my $item_name = $$b_nodes[2]->as_text; 
 
         my $e_no   = (exists($self->{ENoSubNo}{$nickname}) && $self->{ENoSubNo}{$nickname}[0]) ? $self->{ENoSubNo}{$nickname}[0] : 0;
