@@ -123,7 +123,7 @@ sub GetPartyNumData{
         if(!exists($self->{Battler}{$nickname})){ next;}
         $battler_num += $self->{Battler}{$nickname}; # ボスフラグ込での判定人数取得
 
-        if(!exists($self->{Sook}{$title})){ next;}
+        if(!exists($self->{Sook}{$nickname})){ next;}
         $sook_num    += $self->{Sook}{$nickname};    # 臆病者人数を取得(ボスフラグは2人分)
     }
 
