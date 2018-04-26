@@ -49,6 +49,7 @@ sub Init(){
                 "sub_no",
                 "enemy",
                 "item",
+                "i_no",
                 "is_pk",
     ];
 
@@ -132,11 +133,21 @@ sub GetItemGetData{
         my $enemy_id = $self->{CommonDatas}{EnemyName}->GetOrAddId($enemy_name);
 
         my $item_name = $$b_nodes[2]->as_text; 
+        my $get_i_no  = 0;
 
         my $e_no   = (exists($self->{ENoSubNo}{$nickname}) && $self->{ENoSubNo}{$nickname}[0]) ? $self->{ENoSubNo}{$nickname}[0] : 0;
         my $sub_no = (exists($self->{ENoSubNo}{$nickname}) && $self->{ENoSubNo}{$nickname}[1]) ? $self->{ENoSubNo}{$nickname}[1] : 0;
+        
+        # INoを名前から照合。今回新規に取得したアイテムのみ対象
+        foreach my $i_no (keys %{$self->{CommonDatas}{NewItemData}{$e_no}}){
+            if($item_name eq $self->{CommonDatas}{NewItemData}{$e_no}{$i_no}){
+                $get_i_no = $i_no;
+                delete $self->{CommonDatas}{NewItemData}{$e_no}{$i_no};
+                last;
+            }
+        }
 
-        my @datas=($self->{ResultNo}, $self->{GenerateNo}, $self->{PartyNo}, $e_no, $sub_no, $enemy_id, $item_name, $self->{IsPK});
+        my @datas=($self->{ResultNo}, $self->{GenerateNo}, $self->{PartyNo}, $e_no, $sub_no, $enemy_id, $item_name, $get_i_no, $self->{IsPK});
         $self->{Datas}{Data}->AddData(join(ConstData::SPLIT, @datas));
     }
 
