@@ -204,7 +204,7 @@ sub GetItemData{
 
         # 鍛冶結果判定用に新しくアイテム枠に入ったものだけ記録
         if(!exists($self->{CommonDatas}{ItemLastData}{$self->{ENo}}{$item_no}) || $self->{CommonDatas}{ItemLastData}{$self->{ENo}}{$item_no} ne $name){
-            $self->{CommonDatas}{SmithItemData}{$self->{ENo}}{$item_no} = $name;
+            $self->{CommonDatas}{NewItemData}{$self->{ENo}}{$item_no} = $name;
         }
 
         $self->{CommonDatas}{ItemData}{$self->{ENo}}{$item_no} = $name;

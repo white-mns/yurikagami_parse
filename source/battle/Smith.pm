@@ -157,7 +157,7 @@ sub GetSmithData{
         my $result_node = pop(@$it_b_nodes);
         my $main_material_node = shift(@$it_b_nodes);
 
-        # 装備のINoを名前から照合
+        # 参考装備のINoを名前から照合
         foreach my $i_no (keys %{$self->{CommonDatas}{ItemData}{$e_no}}){
             if($source_node->as_text eq $self->{CommonDatas}{ItemData}{$e_no}{$i_no}){
                 $source_i_no = $i_no;
@@ -170,8 +170,10 @@ sub GetSmithData{
                 }
             }
         }
-        foreach my $i_no (keys %{$self->{CommonDatas}{SmithItemData}{$e_no}}){
-            if($result_node->as_text eq $self->{CommonDatas}{SmithItemData}{$e_no}{$i_no}){
+
+        # 作成装備のINoを名前から照合。今回新規に取得したアイテムのみ対象
+        foreach my $i_no (keys %{$self->{CommonDatas}{NewItemData}{$e_no}}){
+            if($result_node->as_text eq $self->{CommonDatas}{NewItemData}{$e_no}{$i_no}){
                 $result_i_no = $i_no;
             }
         }
