@@ -118,13 +118,13 @@ sub GetPartyNumData{
     my $plpt_tr_nodes  = &GetNode::GetNode_Tag_Class("tr","plpt", \$bstat_table_node);
     foreach my $plpt_tr_node (@$plpt_tr_nodes){
         my $td_nodes = &GetNode::GetNode_Tag("td", \$plpt_tr_node);
-        my $title = $$td_nodes[0]->as_text; 
+        my $nickname = $$td_nodes[0]->as_text; 
 
-        if(!exists($self->{Battler}{$title})){ next;}
-        $battler_num += $self->{Battler}{$title}; # ボスフラグ込での判定人数取得
+        if(!exists($self->{Battler}{$nickname})){ next;}
+        $battler_num += $self->{Battler}{$nickname}; # ボスフラグ込での判定人数取得
 
         if(!exists($self->{Sook}{$title})){ next;}
-        $sook_num    += $self->{Sook}{$title};    # 臆病者人数を取得(ボスフラグは2人分)
+        $sook_num    += $self->{Sook}{$nickname};    # 臆病者人数を取得(ボスフラグは2人分)
     }
 
     my @datas=($self->{ResultNo}, $self->{GenerateNo}, $self->{PartyNo}, $self->{PartyName}, scalar(keys(%{$self->{CommonDatas}{Party}{$self->{PartyNo}}})), $battler_num, $sook_num);
