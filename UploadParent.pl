@@ -138,6 +138,10 @@ sub Main {
             $upload->DeleteSameResult('enemy_party_infos', $result_no, $generate_no);
             $upload->Upload("./output/battle/enemy_party_info_" . $result_no . "_" . $generate_no . ".csv", 'enemy_party_infos');
         }
+        if(ConstData::EXE_BATTLE_ITEM_GET){
+            $upload->DeleteSameResult('item_gets', $result_no, $generate_no);
+            $upload->Upload("./output/battle/item_get_" . $result_no . "_" . $generate_no . ".csv", 'item_gets');
+        }
     }
 
     print "result_no:$result_no,generate_no:$generate_no\n";

@@ -167,12 +167,12 @@ sub GetSkillData{
 
         # 戦闘時、ボスフラグ込での人数を出すために、通り名とボスフラグ込人数、臆病者人数を共通変数で記録する(通り名はプロフィール一覧で取得する)
         if($skill_name eq "ボスフラグ"){
-            my $title = $self->{CommonDatas}{NickName}{$self->{ENo}}{$self->{SubNo}};
-            $self->{CommonDatas}{Battler}{$self->{ENo}}{$title} = 2;
+            my $nickname = $self->{CommonDatas}{NickName}{$self->{ENo}}{$self->{SubNo}};
+            $self->{CommonDatas}{Battler}{$self->{ENo}}{$nickname} = 2;
         }
         if($skill_name eq "臆病者"){
-            my $title = $self->{CommonDatas}{NickName}{$self->{ENo}}{$self->{SubNo}};
-            $self->{CommonDatas}{Sook}{$self->{ENo}}{$title} = 1;
+            my $nickname = $self->{CommonDatas}{NickName}{$self->{ENo}}{$self->{SubNo}};
+            $self->{CommonDatas}{Sook}{$self->{ENo}}{$nickname} = 1;
         }
     }
 
