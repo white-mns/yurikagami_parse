@@ -123,7 +123,7 @@ sub GetData{
     $self->{PartyNo} = $party_no;
     $self->{Enemy}  = {};
 
-    if($self->isPractice($quest_div_node)){ return;}
+    $self->{isPK} = ($self->isPractice($quest_div_node)) ? 1 : 0;
     $self->GetEnemyData($bstat_table_nodes);
     
     return;
@@ -182,7 +182,7 @@ sub GetEnemyData{
             $self->{Enemy}{$enemy_full_name} = $enemy_full_name;
     
             # 新出敵の取得
-            if(!exists($self->{AllEnemy}{$enemy_id})){
+            if(!$self->{isPK} && !exists($self->{AllEnemy}{$enemy_id})){
                 my @new_data = ($self->{ResultNo}, $self->{GenerateNo}, $enemy_id);
                 $self->{Datas}{NewEnemy}->AddData(join(ConstData::SPLIT, @new_data));
 
