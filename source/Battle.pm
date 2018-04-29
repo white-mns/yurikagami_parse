@@ -24,6 +24,8 @@ require "./source/battle/CurrentPlace.pm";
 require "./source/battle/Smith.pm";
 require "./source/battle/Enemy.pm";
 require "./source/battle/ItemGet.pm";
+require "./source/battle/Income.pm";
+require "./source/battle/BattleResult.pm";
 
 use ConstData;        #定数呼び出し
 
@@ -61,6 +63,8 @@ sub Init(){
     if(ConstData::EXE_BATTLE_SMITH)         {$self->{DataHandlers}{Smith}        = Smith->new();}
     if(ConstData::EXE_BATTLE_ENEMY)         {$self->{DataHandlers}{Enemy}        = Enemy->new();}
     if(ConstData::EXE_BATTLE_ITEM_GET)      {$self->{DataHandlers}{ItemGet}      = ItemGet->new();}
+    if(ConstData::EXE_BATTLE_INCOME)        {$self->{DataHandlers}{Income}       = Income->new();}
+    if(ConstData::EXE_BATTLE_RESULT)        {$self->{DataHandlers}{BattleResult} = BattleResult->new();}
 
     #初期化処理
     foreach my $object( values %{ $self->{DataHandlers} } ) {
@@ -126,13 +130,15 @@ sub ParsePage{
     my $tree = HTML::TreeBuilder->new;
     $tree->parse($content);
 
-    my $stat_table_nodes   = &GetNode::GetNode_Tag_Class("table","stat", \$tree);
-    my $h1_nodes           = &GetNode::GetNode_Tag("h1", \$tree);
-    my $bstat_table_nodes  = &GetNode::GetNode_Tag_Class("table","bstat", \$tree);
-    my $map_div_nodes      = &GetNode::GetNode_Tag_Class("div","map", \$tree);
-    my $smith_div_nodes    = &GetNode::GetNode_Tag_Class("div","smith get", \$tree);
-    my $quest_div_nodes    = &GetNode::GetNode_Tag_Class("div","quest", \$tree);
-    my $item_get_div_nodes = &GetNode::GetNode_Tag_Class("div","item get", \$tree);
+    my $stat_table_nodes     = &GetNode::GetNode_Tag_Class("table","stat", \$tree);
+    my $h1_nodes             = &GetNode::GetNode_Tag("h1", \$tree);
+    my $bstat_table_nodes    = &GetNode::GetNode_Tag_Class("table","bstat", \$tree);
+    my $map_div_nodes        = &GetNode::GetNode_Tag_Class("div","map", \$tree);
+    my $smith_div_nodes      = &GetNode::GetNode_Tag_Class("div","smith get", \$tree);
+    my $quest_div_nodes      = &GetNode::GetNode_Tag_Class("div","quest", \$tree);
+    my $item_get_div_nodes   = &GetNode::GetNode_Tag_Class("div","item get", \$tree);
+    my $get_mn_exp_div_nodes = &GetNode::GetNode_Tag_Class("div","get mn exp", \$tree);
+    my $finish_div_nodes     = &GetNode::GetNode_Tag_Class("div","finish", \$tree);
 
     # データリスト取得
     if(exists($self->{DataHandlers}{Party}))        {$self->{DataHandlers}{Party}->GetData       ($party_no, $stat_table_nodes)};
@@ -141,6 +147,8 @@ sub ParsePage{
     if(exists($self->{DataHandlers}{Smith}))        {$self->{DataHandlers}{Smith}->GetData       ($party_no, $smith_div_nodes)};
     if(exists($self->{DataHandlers}{Enemy}))        {$self->{DataHandlers}{Enemy}->GetData       ($party_no, $bstat_table_nodes, $$quest_div_nodes[0])};
     if(exists($self->{DataHandlers}{ItemGet}))      {$self->{DataHandlers}{ItemGet}->GetData     ($party_no, $item_get_div_nodes, $$quest_div_nodes[0])};
+    if(exists($self->{DataHandlers}{Income}))       {$self->{DataHandlers}{Income}->GetData      ($party_no, $get_mn_exp_div_nodes, $$quest_div_nodes[0])};
+    if(exists($self->{DataHandlers}{BattleResult})) {$self->{DataHandlers}{BattleResult}->GetData($party_no, $$finish_div_nodes[0])};
 
     $tree = $tree->delete;
 }

@@ -142,6 +142,14 @@ sub Main {
             $upload->DeleteSameResult('item_gets', $result_no, $generate_no);
             $upload->Upload("./output/battle/item_get_" . $result_no . "_" . $generate_no . ".csv", 'item_gets');
         }
+        if(ConstData::EXE_BATTLE_INCOME){
+            $upload->DeleteSameResult('incomes', $result_no, $generate_no);
+            $upload->Upload("./output/battle/income_" . $result_no . "_" . $generate_no . ".csv", 'incomes');
+        }
+        if(ConstData::EXE_BATTLE_RESULT){
+            $upload->DeleteSameResult('battle_results', $result_no, $generate_no);
+            $upload->Upload("./output/battle/battle_result_" . $result_no . "_" . $generate_no . ".csv", 'battle_results');
+        }
     }
 
     print "result_no:$result_no,generate_no:$generate_no\n";
