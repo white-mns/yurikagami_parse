@@ -119,6 +119,7 @@ result_no	generate_no	party_no	enemy	suffix
 15	0	36	45	B
 15	0	36	45	A
 15	0	36	47	
+15	0	37	175	
 15	0	38	2	A
 15	0	38	2	B
 15	0	38	1	A
@@ -188,6 +189,7 @@ result_no	generate_no	party_no	enemy	suffix
 15	0	57	47	A
 15	0	57	47	B
 15	0	57	45	C
+15	0	59	192	
 15	0	61	95	
 15	0	61	50	A
 15	0	61	50	B
@@ -425,4 +427,5 @@ result_no	generate_no	party_no	enemy	suffix
 15	0	203	8	
 15	0	206	9	
 15	0	206	4	
+15	0	209	87	
 15	0	212	37	
