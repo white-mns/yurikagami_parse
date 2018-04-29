@@ -142,6 +142,10 @@ sub ParsePage{
         $get_mn_exp_div_nodes = &GetNode::GetNode_Tag_Class("div","get exp", \$tree);
     }
     my $finish_div_nodes     = &GetNode::GetNode_Tag_Class("div","finish", \$tree);
+    my $battle_div_nodes     = [];
+    if (!scalar(@$finish_div_nodes)){
+        $battle_div_nodes     = &GetNode::GetNode_Tag_Class("div","battle", \$tree);
+    }
 
     # データリスト取得
     if(exists($self->{DataHandlers}{Party}))        {$self->{DataHandlers}{Party}->GetData       ($party_no, $stat_table_nodes)};
@@ -151,7 +155,7 @@ sub ParsePage{
     if(exists($self->{DataHandlers}{Enemy}))        {$self->{DataHandlers}{Enemy}->GetData       ($party_no, $bstat_table_nodes, $$quest_div_nodes[0])};
     if(exists($self->{DataHandlers}{ItemGet}))      {$self->{DataHandlers}{ItemGet}->GetData     ($party_no, $item_get_div_nodes, $$quest_div_nodes[0])};
     if(exists($self->{DataHandlers}{Income}))       {$self->{DataHandlers}{Income}->GetData      ($party_no, $get_mn_exp_div_nodes, $$quest_div_nodes[0])};
-    if(exists($self->{DataHandlers}{BattleResult})) {$self->{DataHandlers}{BattleResult}->GetData($party_no, $$finish_div_nodes[0])};
+    if(exists($self->{DataHandlers}{BattleResult})) {$self->{DataHandlers}{BattleResult}->GetData($party_no, $$finish_div_nodes[0], $$battle_div_nodes[0])};
 
     $tree = $tree->delete;
 }

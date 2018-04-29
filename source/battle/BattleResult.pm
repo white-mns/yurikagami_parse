@@ -64,11 +64,12 @@ sub GetData{
     my $self      = shift;
     my $party_no  = shift;
     my $finish_div_node = shift;
+    my $battle_div_node = shift;
 
 
     $self->{PartyNo} = $party_no;
 
-    $self->GetBattleResultData($finish_div_node);
+    $self->GetBattleResultData($finish_div_node, $battle_div_node);
     
     return;
 }
@@ -81,15 +82,32 @@ sub GetData{
 sub GetBattleResultData{
     my $self  = shift;
     my $finish_div_node = shift;
+    my $battle_div_node = shift;
 
     my $battle_result = 0;
     if($finish_div_node){
-        my $result_text = $finish_div_node->as_text;
-
         $battle_result = ($finish_div_node->as_text =~ /勝利した！/) ? 1  : $battle_result;
         $battle_result = ($finish_div_node->as_text =~ /敗北した…/) ? -1 : $battle_result;
     }else{
         $battle_result = -2;
+    }
+
+    if($battle_div_node && $battle_div_node =~ /HASH/){
+        my $b_nodes = &GetNode::GetNode_Tag("b", \$battle_div_node);
+        foreach my $b_node (reverse @$b_nodes){
+            if ($b_node->as_text =~ /勝利した！/){
+                $battle_result = 1;
+                last;
+            }
+            if ($b_node->as_text =~ /敗北した…/) {
+                $battle_result = -1;
+                last;
+            }
+            if ($b_node->as_text =~ /これ以上戦えないため、休戦した。/) {
+                $battle_result = 0;
+                last;
+            }
+        }
     }
 
     my @datas=($self->{ResultNo}, $self->{GenerateNo}, $self->{PartyNo}, $battle_result);
