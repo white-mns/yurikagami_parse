@@ -138,6 +138,9 @@ sub ParsePage{
     my $quest_div_nodes      = &GetNode::GetNode_Tag_Class("div","quest", \$tree);
     my $item_get_div_nodes   = &GetNode::GetNode_Tag_Class("div","item get", \$tree);
     my $get_mn_exp_div_nodes = &GetNode::GetNode_Tag_Class("div","get mn exp", \$tree);
+    if (!scalar(@$get_mn_exp_div_nodes)) {
+        $get_mn_exp_div_nodes = &GetNode::GetNode_Tag_Class("div","get exp", \$tree);
+    }
     my $finish_div_nodes     = &GetNode::GetNode_Tag_Class("div","finish", \$tree);
 
     # データリスト取得
