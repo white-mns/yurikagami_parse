@@ -172,11 +172,11 @@ sub GetItemData{
             $magic   = $td_nodes[4]->as_text;
             $guard   = $td_nodes[5]->as_text;
             $protect = $td_nodes[6]->as_text;
-            $slash   =~ s/-/0/;
-            $charge  =~ s/-/0/;
-            $magic   =~ s/-/0/;
-            $guard   =~ s/-/0/;
-            $protect =~ s/-/0/;
+            $slash   =~ s/-$/0/;
+            $charge  =~ s/-$/0/;
+            $magic   =~ s/-$/0/;
+            $guard   =~ s/-$/0/;
+            $protect =~ s/-$/0/;
 
             $have_td_num = 7;
         }

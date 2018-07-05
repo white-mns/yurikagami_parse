@@ -61,6 +61,7 @@ result_no	generate_no	party_no	enemy	suffix
 16	0	17	21	
 16	0	17	31	B
 16	0	18	39	
+16	0	19	204	
 16	0	21	35	
 16	0	21	100	A
 16	0	21	100	B
@@ -89,6 +90,8 @@ result_no	generate_no	party_no	enemy	suffix
 16	0	27	28	A
 16	0	27	27	B
 16	0	27	28	B
+16	0	28	205	
+16	0	28	206	
 16	0	29	35	
 16	0	29	40	
 16	0	30	30	
@@ -116,6 +119,7 @@ result_no	generate_no	party_no	enemy	suffix
 16	0	36	46	
 16	0	36	36	A
 16	0	36	37	
+16	0	37	175	
 16	0	38	8	A
 16	0	38	8	B
 16	0	38	6	A
@@ -129,6 +133,7 @@ result_no	generate_no	party_no	enemy	suffix
 16	0	39	2	
 16	0	39	1	C
 16	0	40	2	
+16	0	41	191	
 16	0	42	92	A
 16	0	42	92	B
 16	0	42	78	
@@ -182,6 +187,7 @@ result_no	generate_no	party_no	enemy	suffix
 16	0	57	46	C
 16	0	57	38	A
 16	0	57	38	B
+16	0	59	192	
 16	0	61	33	
 16	0	61	30	
 16	0	62	50	A
@@ -204,6 +210,7 @@ result_no	generate_no	party_no	enemy	suffix
 16	0	64	39	C
 16	0	64	39	D
 16	0	64	39	E
+16	0	65	207	
 16	0	66	10	A
 16	0	66	12	A
 16	0	66	12	B
@@ -240,6 +247,8 @@ result_no	generate_no	party_no	enemy	suffix
 16	0	85	29	
 16	0	92	17	
 16	0	94	21	
+16	0	95	208	
+16	0	95	209	
 16	0	96	50	A
 16	0	96	50	B
 16	0	96	50	C
@@ -280,6 +289,10 @@ result_no	generate_no	party_no	enemy	suffix
 16	0	117	28	A
 16	0	117	28	B
 16	0	117	28	C
+16	0	124	210	
+16	0	124	211	
+16	0	124	212	
+16	0	124	213	
 16	0	125	16	
 16	0	125	25	
 16	0	126	89	
@@ -304,6 +317,10 @@ result_no	generate_no	party_no	enemy	suffix
 16	0	140	43	
 16	0	140	42	A
 16	0	140	42	B
+16	0	142	214	
+16	0	142	215	
+16	0	142	216	
+16	0	142	217	
 16	0	143	37	
 16	0	144	47	A
 16	0	144	45	
@@ -368,5 +385,6 @@ result_no	generate_no	party_no	enemy	suffix
 16	0	194	39	D
 16	0	194	39	E
 16	0	202	10	
+16	0	206	194	
 16	0	212	37	
 16	0	212	38	

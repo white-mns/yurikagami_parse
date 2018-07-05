@@ -98,6 +98,9 @@ result_no	generate_no	party_no	enemy	suffix
 7	0	45	1	B
 7	0	45	1	C
 7	0	46	1	
+7	0	47	179	
+7	0	47	187	
+7	0	47	188	
 7	0	48	3	
 7	0	53	6	
 7	0	53	5	
@@ -270,6 +273,7 @@ result_no	generate_no	party_no	enemy	suffix
 7	0	194	10	
 7	0	194	12	B
 7	0	200	3	
+7	0	201	189	
 7	0	202	2	
 7	0	203	9	
 7	0	203	4	

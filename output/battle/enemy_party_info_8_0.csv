@@ -1,5 +1,6 @@
 result_no	generate_no	party_no	enemy_num	
 8	0	1	5
+8	0	2	0
 8	0	3	1
 8	0	4	2
 8	0	5	2
@@ -9,6 +10,7 @@ result_no	generate_no	party_no	enemy_num
 8	0	9	4
 8	0	10	1
 8	0	11	2
+8	0	12	0
 8	0	13	3
 8	0	14	1
 8	0	15	2
@@ -19,6 +21,7 @@ result_no	generate_no	party_no	enemy_num
 8	0	20	3
 8	0	21	3
 8	0	22	1
+8	0	23	0
 8	0	24	3
 8	0	25	1
 8	0	26	1
@@ -49,6 +52,7 @@ result_no	generate_no	party_no	enemy_num
 8	0	51	1
 8	0	52	5
 8	0	53	2
+8	0	54	0
 8	0	55	3
 8	0	56	0
 8	0	57	5
@@ -66,6 +70,7 @@ result_no	generate_no	party_no	enemy_num
 8	0	72	1
 8	0	74	2
 8	0	75	2
+8	0	76	0
 8	0	77	1
 8	0	80	1
 8	0	83	2
@@ -82,6 +87,7 @@ result_no	generate_no	party_no	enemy_num
 8	0	101	1
 8	0	102	1
 8	0	104	5
+8	0	105	1
 8	0	107	2
 8	0	109	4
 8	0	110	4
@@ -114,10 +120,12 @@ result_no	generate_no	party_no	enemy_num
 8	0	150	1
 8	0	151	5
 8	0	155	1
+8	0	156	1
 8	0	158	1
 8	0	159	1
 8	0	160	1
 8	0	161	1
+8	0	164	0
 8	0	165	1
 8	0	166	1
 8	0	171	1
