@@ -25,6 +25,7 @@ use warnings;
         use constant EXE_CHARA_SKILL         => 1;
         use constant EXE_CHARA_EVENT         => 1;
         use constant EXE_CHARA_EVENT_PROCEED => 1;
+        use constant EXE_CHARA_SEARCH        => 1;
     use constant EXE_DATA        => 1;
         use constant EXE_DATA_PROPER_NAME     => 1;
         use constant EXE_DATA_JOB_NAME        => 1;
