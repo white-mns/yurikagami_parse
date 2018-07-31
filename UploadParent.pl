@@ -112,6 +112,10 @@ sub Main {
             $upload->DeleteSameResult('event_proceeds', $result_no, $generate_no);
             $upload->Upload("./output/chara/event_proceed_" . $result_no . "_" . $generate_no . ".csv", 'event_proceeds');
         }
+        if(ConstData::EXE_CHARA_SEARCH){
+            $upload->DeleteSameResult('searches', $result_no, $generate_no);
+            $upload->Upload("./output/chara/search_" . $result_no . "_" . $generate_no . ".csv", 'searches');
+        }
     }
     if(ConstData::EXE_BATTLE){
         if(ConstData::EXE_BATTLE_PARTY){
