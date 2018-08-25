@@ -68,6 +68,10 @@ sub Main {
             $upload->DeleteAll('enemy_names');
             $upload->Upload("./output/data/enemy_name.csv", 'enemy_names');
         }
+        if(ConstData::EXE_DATA_MATERIAL_PRICE){
+            $upload->DeleteAll('material_prices');
+            $upload->Upload("./output/data/material_price.csv", 'material_prices');
+        }
     }
     if(ConstData::EXE_NEW){
         if(ConstData::EXE_NEW_EVENT){
@@ -133,6 +137,10 @@ sub Main {
         if(ConstData::EXE_BATTLE_SMITH){
             $upload->DeleteSameResult('smiths', $result_no, $generate_no);
             $upload->Upload("./output/battle/smith_" . $result_no . "_" . $generate_no . ".csv", 'smiths');
+        }
+        if(ConstData::EXE_BATTLE_SMITH_DISPLAY){
+            $upload->DeleteSameResult('smith_displays', $result_no, $generate_no);
+            $upload->Upload("./output/battle/smith_display_" . $result_no . "_" . $generate_no . ".csv", 'smith_displays');
         }
         if(ConstData::EXE_BATTLE_ENEMY){
             $upload->DeleteSameResult('enemies', $result_no, $generate_no);

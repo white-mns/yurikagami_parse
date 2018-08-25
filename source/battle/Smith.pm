@@ -36,9 +36,11 @@ sub new {
 sub Init(){
     my $self = shift;
     ($self->{ResultNo}, $self->{GenerateNo}, $self->{CommonDatas}) = @_;
-    
+    $self->{MaterialPrice} = {};
+
     #初期化
-    $self->{Datas}{Data}  = StoreData->new();
+    $self->{Datas}{Smith}  = StoreData->new();
+    $self->{Datas}{SmithDisplay}  = StoreData->new();
     my $header_list = "";
    
     $header_list = [
@@ -63,14 +65,29 @@ sub Init(){
                 "sub_material_4_name_id",
     ];
 
-    $self->{Datas}{Data}->Init($header_list);
+    $self->{Datas}{Smith}->Init($header_list);
+
+    $header_list = [
+                "result_no",
+                "generate_no",
+                "party_no",
+                "e_no",
+                "sub_no",
+                "total_price",
+                "price_rate",
+                "display_rate",
+    ];
+    $self->{Datas}{SmithDisplay}->Init($header_list);
     
     #出力ファイル設定
-    $self->{Datas}{Data}->SetOutputName( "./output/battle/smith_" . $self->{ResultNo} . "_" . $self->{GenerateNo} . ".csv" );
+    $self->{Datas}{Smith}->SetOutputName( "./output/battle/smith_" . $self->{ResultNo} . "_" . $self->{GenerateNo} . ".csv" );
+    $self->{Datas}{SmithDisplay}->SetOutputName( "./output/battle/smith_display_" . $self->{ResultNo} . "_" . $self->{GenerateNo} . ".csv" );
     
     $self->ReadLastData();
+    $self->ReadMaterialPriceData();
     return;
 }
+
 #-----------------------------------#
 #    既存データを読み込む
 #-----------------------------------#
@@ -91,6 +108,28 @@ sub ReadLastData(){
    
     return;
 }
+
+#-----------------------------------#
+#    素材価値データを読み込む
+#-----------------------------------#
+sub ReadMaterialPriceData(){
+    my $self      = shift;
+    my $file_name = "./output/data/material_price.csv" ;
+    
+    my $content = &IO::FileRead ( $file_name );
+    
+    my @file_data = split(/\n/, $content);
+    shift (@file_data);
+    
+    foreach my  $data_set(@file_data){
+        my $material_price_datas = []; 
+        @$material_price_datas   = split(ConstData::SPLIT, $data_set);
+        $self->{MaterialPrice}{$$material_price_datas[0]} = [$$material_price_datas[1], $$material_price_datas[2], $$material_price_datas[3]]
+    }
+
+    return;
+}
+
 #-----------------------------------#
 #    データ取得
 #------------------------------------
@@ -120,6 +159,7 @@ sub GetSmithData{
         my ($e_no, $result_i_no, $source_i_no, $main_material_i_no, $sub_material_1_i_no, $sub_material_2_i_no, $sub_material_3_i_no, $sub_material_4_i_no,
             $main_material_name_id, $sub_material_1_name_id, $sub_material_2_name_id, $sub_material_3_name_id, $sub_material_4_name_id) =
            (0,0,0,0,0,0,0,0,0,0,0,0,0);
+        my ($total_price, $price_rate, $display_rate) = (0,0,0);
         my @sub_material_i_nos = (\$sub_material_1_i_no, \$sub_material_2_i_no, \$sub_material_3_i_no, \$sub_material_4_i_no);
         my @sub_material_name_ids = (\$sub_material_1_name_id, \$sub_material_2_name_id, \$sub_material_3_name_id, \$sub_material_4_name_id);
 
@@ -180,17 +220,24 @@ sub GetSmithData{
 
         # 素材INoの取得
         $main_material_name_id = $self->{CommonDatas}{ProperName}->GetOrAddId($main_material_node->as_text);
+        $total_price += exists($self->{MaterialPrice}{$main_material_node->as_text}) ? $self->{MaterialPrice}{$main_material_node->as_text}[0] : 0;
 
         $i = 0;
         foreach my $it_b_node (@$it_b_nodes){
             ${$sub_material_name_ids[$i]} = $self->{CommonDatas}{ProperName}->GetOrAddId($it_b_node->as_text);
+            $total_price +=  exists($self->{MaterialPrice}{$it_b_node->as_text}) ? $self->{MaterialPrice}{$it_b_node->as_text}[0] : 0;
             $i += 1;
         }
+
+        $price_rate = $total_price != 0 && $result_i_no != 0 && exists($self->{CommonDatas}{NewItemPrize}{$e_no}{$result_i_no}) ? $self->{CommonDatas}{NewItemPrize}{$e_no}{$result_i_no} / $total_price : 0;
+        $display_rate = $price_rate / 0.416;
 
         my @datas=($self->{ResultNo}, $self->{GenerateNo},$self->{LastResultNo}, $self->{LastGenerateNo}, $self->{PartyNo}, $e_no, 0,
             $result_i_no, $source_i_no, $main_material_i_no, $sub_material_1_i_no, $sub_material_2_i_no, $sub_material_3_i_no, $sub_material_4_i_no,
             $main_material_name_id, $sub_material_1_name_id, $sub_material_2_name_id, $sub_material_3_name_id, $sub_material_4_name_id);
-        $self->{Datas}{Data}->AddData(join(ConstData::SPLIT, @datas));
+        $self->{Datas}{Smith}->AddData(join(ConstData::SPLIT, @datas));
+        $self->{Datas}{SmithDisplay}->AddData(join(ConstData::SPLIT, ($self->{ResultNo}, $self->{GenerateNo}, $self->{PartyNo}, $e_no, 0,
+            $total_price, $price_rate, $display_rate)));
     }
     return;
 }
