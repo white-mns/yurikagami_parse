@@ -230,7 +230,7 @@ sub GetSmithData{
         }
 
         $price_rate = $total_price != 0 && $result_i_no != 0 && exists($self->{CommonDatas}{NewItemPrize}{$e_no}{$result_i_no}) ? $self->{CommonDatas}{NewItemPrize}{$e_no}{$result_i_no} / $total_price : 0;
-        $display_rate = $price_rate / 0.416;
+        $display_rate = $price_rate / (5 / 12);
 
         my @datas=($self->{ResultNo}, $self->{GenerateNo},$self->{LastResultNo}, $self->{LastGenerateNo}, $self->{PartyNo}, $e_no, 0,
             $result_i_no, $source_i_no, $main_material_i_no, $sub_material_1_i_no, $sub_material_2_i_no, $sub_material_3_i_no, $sub_material_4_i_no,
