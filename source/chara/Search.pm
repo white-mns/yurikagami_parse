@@ -118,10 +118,10 @@ sub GetSearchData{
 
     my @children = $$event_div_nodes[0]->content_list();
     my $result_text = $children[2];
-    my ($main_no, $get_i_no, $i_name, $value) = (0, -1, "", -99999);
 
     foreach my $child ($$event_div_nodes[0]->content_list()){
         if($child) {
+            my ($main_no, $get_i_no, $i_name, $value) = (0, -1, "", -99999);
             
             if($child =~ /HASH/ && $child->tag eq "b" && $child->attr("class") ne "ch") {
                 # アイテム取得時の解析
@@ -136,6 +136,7 @@ sub GetSearchData{
                         if($text eq $self->{CommonDatas}{NewItemData}{$self->{ENo}}{$i_no}){
                             $get_i_no = $i_no;
                             $value = $self->{CommonDatas}{NewItemPrize}{$self->{ENo}}{$i_no};
+                            last;
                         }
                     }
                 }
