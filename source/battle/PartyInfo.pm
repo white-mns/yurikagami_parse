@@ -88,7 +88,7 @@ sub GetPartyNameData{
     my $self  = shift;
     my $h1_node = shift;
 
-    $self->{PartyName} = $h1_node->as_text;
+    $self->{PartyName} = $h1_node ? $h1_node->as_text : "";
 
     return;
 }
