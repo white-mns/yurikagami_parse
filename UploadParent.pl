@@ -52,6 +52,7 @@ sub Main {
     }
     if (ConstData::EXE_CHARA) {
         &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_CHARA_NAME,              "names",               "./output/chara/name_");
+        &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_CHARA_PROFILE,           "profiles",            "./output/chara/profile_");
     }
         &UploadResult($upload, $result_no, $generate_no, 1,                                      "uploaded_checks",     "./output/etc/uploaded_check_");
     print "result_no:$result_no,generate_no:$generate_no\n";
