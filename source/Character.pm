@@ -19,6 +19,7 @@ require "./source/lib/time.pm";
 
 require "./source/chara/Name.pm";
 require "./source/chara/Profile.pm";
+require "./source/chara/Status.pm";
 
 use ConstData;        #定数呼び出し
 
@@ -52,6 +53,7 @@ sub Init{
     #インスタンス作成
     if (ConstData::EXE_CHARA_NAME)    { $self->{DataHandlers}{Name}    = Name->new();}
     if (ConstData::EXE_CHARA_PROFILE) { $self->{DataHandlers}{Profile} = Profile->new();}
+    if (ConstData::EXE_CHARA_STATUS)  { $self->{DataHandlers}{Status}  = Status->new();}
 
     #初期化処理
     foreach my $object( values %{ $self->{DataHandlers} } ) {
@@ -124,6 +126,7 @@ sub ParsePage{
     # データリスト取得
     if (exists($self->{DataHandlers}{Name}))           {$self->{DataHandlers}{Name}->GetData          ($e_no, $f_no, $$stat_table_nodes[0])};
     if (exists($self->{DataHandlers}{Profile}))        {$self->{DataHandlers}{Profile}->GetData       ($e_no, $f_no, $$stat_table_nodes[0])};
+    if (exists($self->{DataHandlers}{Status}))         {$self->{DataHandlers}{Status}->GetData        ($e_no, $f_no, $$stat_table_nodes[0])};
 
     $tree = $tree->delete;
 }
