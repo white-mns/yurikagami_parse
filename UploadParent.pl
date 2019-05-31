@@ -54,6 +54,7 @@ sub Main {
         &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_CHARA_NAME,              "names",               "./output/chara/name_");
         &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_CHARA_PROFILE,           "profiles",            "./output/chara/profile_");
         &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_CHARA_STATUS,            "statuses",            "./output/chara/status_");
+        &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_CHARA_ITEM,              "items",               "./output/chara/item_");
     }
         &UploadResult($upload, $result_no, $generate_no, 1,                                      "uploaded_checks",     "./output/etc/uploaded_check_");
     print "result_no:$result_no,generate_no:$generate_no\n";
