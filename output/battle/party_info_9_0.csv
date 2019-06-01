@@ -1,11 +1,14 @@
 result_no	generate_no	party_no	name	member_num	battler_num	sook_num	
 9	0	1	GEKOKUJO PT	4	4	0
+9	0	2	#2 PT	0	0	0
 9	0	3	†聖天使猫姫† PT	1	1	0
 9	0	4	ぷりちーファイターズ！ PT	2	2	0
 9	0	5	焼き鳥ではない PT	2	4	0
 9	0	6	#6 PT	1	2	0
 9	0	7	天使と妖精と女子高生とピザ屋の気ままな救済旅 PT	1	4	0
 9	0	8	無宿後家 PT	2	5	0
+9	0	9	#9 PT	0	0	0
+9	0	10	無職パーティー"ザ・フリー" PT	0	0	0
 9	0	11	魔王一行 PT	1	1	0
 9	0	12	#12 PT	3	3	0
 9	0	13	マガモノ一人？旅 PT	1	1	0
@@ -22,6 +25,7 @@ result_no	generate_no	party_no	name	member_num	battler_num	sook_num
 9	0	24	JKとユーレイと傭兵さん PT	3	3	0
 9	0	25	#25 PT	1	1	0
 9	0	26	#26 PT	1	1	0
+9	0	27	#27 PT	0	0	0
 9	0	28	木をなぎ倒してぶっ飛ばす！！！！ PT	1	1	0
 9	0	29	彼方の幻影 PT	1	1	0
 9	0	30	旅路は続くよどこまでも PT	1	1	0
@@ -34,9 +38,13 @@ result_no	generate_no	party_no	name	member_num	battler_num	sook_num
 9	0	37	癒し羽の手記 PT	2	5	0
 9	0	38	アーツチェイン PT	3	3	0
 9	0	39	#39 PT	1	2	0
+9	0	40	#40 PT	0	0	0
+9	0	41	#41 PT	0	0	0
 9	0	42	その胸は豊満である PT	3	3	0
+9	0	43	#43 PT	0	0	0
 9	0	44	夜の帳は今此処に PT	2	3	0
 9	0	45	#45 PT	2	4	0
+9	0	46	#46 PT	0	0	0
 9	0	47	null PT	1	2	0
 9	0	48	#48 PT	1	1	0
 9	0	49	ぱらぱらと消えていく PT	1	1	0
@@ -44,11 +52,16 @@ result_no	generate_no	party_no	name	member_num	battler_num	sook_num
 9	0	51	#51 PT	1	1	0
 9	0	52	#52 PT	1	1	0
 9	0	53	#53 PT	1	2	0
+9	0	54	#54 PT	1	0	0
 9	0	55	#55 PT	1	1	0
 9	0	56	#56 PT	1	1	0
 9	0	57	ないとめあばすたー PT	5	5	0
+9	0	58	#58 PT	1	0	0
 9	0	59	きつねのおさんぽ PT	1	1	0
 9	0	60	#60 PT	1	1	0
+9	0	61	おやつおやつ PT	0	0	0
+9	0	63	#63 PT	0	0	0
+9	0	64	#64 PT	0	0	0
 9	0	65	#65 PT	1	1	0
 9	0	66	LRTunes+ PT	1	2	0
 9	0	67	 PT	1	2	0
@@ -62,6 +75,7 @@ result_no	generate_no	party_no	name	member_num	battler_num	sook_num
 9	0	80	猫愛好家 PT	1	1	0
 9	0	83	#83 PT	1	1	0
 9	0	85	殺意溢れるジャイアントヤマアラシ PT	1	2	0
+9	0	91	魔王一行 PT	0	0	0
 9	0	92	某学園生 PT	1	1	0
 9	0	93	#93 PT	1	1	0
 9	0	94	流浪の魔導士 PT	1	1	0
@@ -83,6 +97,7 @@ result_no	generate_no	party_no	name	member_num	battler_num	sook_num
 9	0	116	流されてトスナ大陸 PT	1	1	0
 9	0	117	村焼きマックス怒りのデスロード PT	4	5	0
 9	0	118	スカヴェンジャーズ・キャラバン PT	1	2	0
+9	0	119	フリーフライト PT	0	0	0
 9	0	120	#120 PT	1	1	0
 9	0	122	#122 PT	1	2	0
 9	0	124	シルクハットとおにぎり PT	1	2	0
@@ -119,6 +134,7 @@ result_no	generate_no	party_no	name	member_num	battler_num	sook_num
 9	0	179	飛光 PT	1	1	0
 9	0	183	#183 PT	1	1	0
 9	0	184	#184 PT	3	3	0
+9	0	189	#189 PT	0	0	0
 9	0	190	#190 PT	1	1	0
 9	0	191	仕方にゃいからにゃあの笹蒲鉾を分けてやるにゃ。 PT	4	5	0
 9	0	192	#192 PT	1	1	0
@@ -127,6 +143,7 @@ result_no	generate_no	party_no	name	member_num	battler_num	sook_num
 9	0	201	#201 PT	3	3	0
 9	0	202	#202 PT	1	1	0
 9	0	203	The Lilia Scrolls:Nemui PT	1	1	0
+9	0	204	#204 PT	0	0	0
 9	0	205	奇縁航行 PT	1	1	0
 9	0	206	#206 PT	1	4	0
 9	0	207	手探り独り旅 PT	1	1	0

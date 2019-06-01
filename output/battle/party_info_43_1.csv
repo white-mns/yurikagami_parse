@@ -7,6 +7,7 @@ result_no	generate_no	party_no	name	member_num	battler_num	sook_num
 43	1	6	#6 PT	1	1	0
 43	1	7	鍛冶旅団「春灯」 PT	1	7	0
 43	1	8	無宿後家 PT	1	1	0
+43	1	9	カンシオン・デル・ルマンド PT	0	0	0
 43	1	10	#10 PT	2	2	0
 43	1	11	#11 PT	1	1	0
 43	1	12	にゅーとらる PT	1	1	0
@@ -23,6 +24,7 @@ result_no	generate_no	party_no	name	member_num	battler_num	sook_num
 43	1	24	JKとユーレイと傭兵さん PT	2	2	0
 43	1	25	四天王倒す！ PT	3	9	6
 43	1	28	悪役令嬢とゆかいな従者たち PT	2	7	0
+43	1	29	#29 PT	0	0	0
 43	1	31	旅ビトのつどい PT	4	4	0
 43	1	32	#32 PT	1	1	0
 43	1	34	#34 PT	1	2	0
@@ -34,6 +36,7 @@ result_no	generate_no	party_no	name	member_num	battler_num	sook_num
 43	1	44	スクラップ・コア PT	1	1	0
 43	1	45	シュヴェーゲルン一家 PT	2	5	0
 43	1	46	#46 PT	1	1	0
+43	1	47	#47 PT	0	0	0
 43	1	51	魂の檻 PT	1	3	0
 43	1	53	#53 PT	1	3	0
 43	1	54	#54 PT	1	2	0

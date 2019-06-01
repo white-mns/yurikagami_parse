@@ -8,6 +8,10 @@ GENERATE_NO=$2
 
 ZIP_NAME=${RESULT_NO}_$GENERATE_NO
 
+if [ -z "$RESULT_NO" ]; then
+    exit
+fi
+
 if [ ! -f ./data/orig/turn${ZIP_NAME}.zip ]; then
     wget -O data/orig/turn${ZIP_NAME}.zip http://csyuki.sakura.ne.jp/cgi-bin/prism/result/turn${RESULT_NO}.zip
 fi
