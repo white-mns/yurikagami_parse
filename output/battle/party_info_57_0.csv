@@ -1,7 +1,10 @@
 result_no	generate_no	party_no	name	member_num	battler_num	sook_num	
+57	0	1	GEKOKUJO PT	3	0	0
 57	0	2	癒し羽の手記 PT	2	5	0
 57	0	3	†聖天使猫姫† PT	1	1	0
 57	0	4	ぷりちーファイターズ！ PT	2	2	0
+57	0	5	焼き鳥ではない PT	2	0	0
+57	0	6	#6 PT	1	0	0
 57	0	7	鍛冶旅団「春灯」 PT	1	7	0
 57	0	8	無宿後家 PT	1	1	0
 57	0	9	#9 PT	1	1	0
@@ -9,6 +12,7 @@ result_no	generate_no	party_no	name	member_num	battler_num	sook_num
 57	0	11	#11 PT	1	1	0
 57	0	12	#12 PT	3	4	0
 57	0	13	マガモノ一人？旅 PT	1	1	0
+57	0	14	#14 PT	0	0	0
 57	0	15	#15 PT	2	3	0
 57	0	16	まとまりのない PT	2	3	0
 57	0	17	お嬢様とメイド PT	2	9	0
@@ -26,13 +30,18 @@ result_no	generate_no	party_no	name	member_num	battler_num	sook_num
 57	0	32	#32 PT	1	1	0
 57	0	33	毒舌娘の旅行 PT	1	5	3
 57	0	34	#34 PT	1	2	0
+57	0	36	ここをキャンプ地とする！ PT	1	0	0
 57	0	37	#37 PT	1	2	0
 57	0	38	アーツチェイン PT	3	14	0
 57	0	41	二手投げを弓に適用したい！！ PT	1	1	0
 57	0	44	スクラップ・コア PT	1	1	0
 57	0	45	シュヴェーゲルン一家 PT	2	5	0
+57	0	46	#46 PT	1	0	0
 57	0	51	無い取れとね包囲網 PT	1	1	0
 57	0	53	#53 PT	1	4	0
+57	0	56	#56 PT	3	0	0
+57	0	57	ないとめあばすたー PT	4	0	0
+57	0	70	#70 PT	1	0	0
 57	0	72	星のかけら PT	1	2	0
 57	0	75	#75 PT	2	2	0
 57	0	83	#83 PT	1	4	0
@@ -45,6 +54,7 @@ result_no	generate_no	party_no	name	member_num	battler_num	sook_num
 57	0	138	悪の秘密結社！ PT	3	8	0
 57	0	140	昏 PT	4	7	0
 57	0	146	アメジストとルビーの旅路 PT	2	2	0
+57	0	151	トゥルー・オリーバー PT	4	0	0
 57	0	155	#155 PT	1	1	0
 57	0	156	#156 PT	1	2	0
 57	0	159	#159 PT	1	1	0

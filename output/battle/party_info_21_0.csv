@@ -23,6 +23,8 @@ result_no	generate_no	party_no	name	member_num	battler_num	sook_num
 21	0	22	#22 PT	1	1	0
 21	0	23	#23 PT	1	1	0
 21	0	24	JKとユーレイと傭兵さん PT	3	3	0
+21	0	25	#25 PT	2	0	0
+21	0	26	#26 PT	2	0	0
 21	0	27	お嬢様と従者 PT	2	6	0
 21	0	28	壁勇者と姫奴隷と畜生踊り子 PT	3	10	0
 21	0	29	#29 PT	1	1	0
@@ -35,8 +37,12 @@ result_no	generate_no	party_no	name	member_num	battler_num	sook_num
 21	0	36	城に向かう PT	1	2	0
 21	0	37	#37 PT	1	1	0
 21	0	38	アーツチェイン PT	3	8	0
+21	0	39	#39 PT	1	0	0
+21	0	40	#40 PT	0	0	0
 21	0	41	二手投げを弓に適用したい！！ PT	2	2	0
+21	0	42	その胸は豊満である PT	0	0	0
 21	0	43	>>歩く大厄災<< PT	3	3	0
+21	0	44	#44 PT	1	0	0
 21	0	45	シュヴェーゲルン一家 PT	2	5	0
 21	0	46	#46 PT	1	1	0
 21	0	47	#47 PT	1	1	0
@@ -48,8 +54,11 @@ result_no	generate_no	party_no	name	member_num	battler_num	sook_num
 21	0	55	#55 PT	3	6	0
 21	0	56	#56 PT	3	3	0
 21	0	57	ないとめあばすたー PT	5	5	0
+21	0	58	お嬢様のお使い PT	0	0	0
+21	0	59	きつねのおさんぽ PT	0	0	0
 21	0	60	#60 PT	1	1	0
 21	0	64	#64 PT	1	2	0
+21	0	66	LRTunes+ PT	0	0	0
 21	0	68	#68 PT	1	1	0
 21	0	70	#70 PT	1	5	4
 21	0	72	星のかけら PT	1	1	0
@@ -58,6 +67,7 @@ result_no	generate_no	party_no	name	member_num	battler_num	sook_num
 21	0	83	#83 PT	1	1	0
 21	0	92	某学園生 PT	1	1	0
 21	0	95	#95 PT	2	3	0
+21	0	96	ひとりぼっちっち PT	0	0	0
 21	0	107	ぶらり一人旅 PT	1	5	4
 21	0	109	ancient-mirrors PT	3	4	0
 21	0	111	#111 PT	1	2	0

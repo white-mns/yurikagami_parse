@@ -15,7 +15,13 @@ result_no	generate_no	party_no	name	member_num	battler_num	sook_num
 5	0	14	#14 PT	1	1	0
 5	0	15	#15 PT	2	3	0
 5	0	16	まとまりのない PT	3	4	0
+5	0	17	#17 PT	2	0	0
+5	0	18	#18 PT	1	0	0
+5	0	19	#19 PT	1	0	0
 5	0	20	冬の果実 PT	3	3	0
+5	0	21	#21 PT	0	0	0
+5	0	22	#22 PT	1	0	0
+5	0	23	#23 PT	0	0	0
 5	0	24	JKとユーレイ PT	2	2	0
 5	0	25	#25 PT	1	1	0
 5	0	26	#26 PT	1	1	0
@@ -26,12 +32,15 @@ result_no	generate_no	party_no	name	member_num	battler_num	sook_num
 5	0	32	#32 PT	5	5	0
 5	0	33	#33 PT	1	1	0
 5	0	34	#34 PT	1	2	0
+5	0	35	#35 PT	0	0	0
 5	0	36	あっ、野生のボスがあらわれた！ PT	1	2	0
+5	0	37	昏 PT	0	0	0
 5	0	38	#38 PT	2	2	0
 5	0	42	その胸は豊満である PT	3	3	0
 5	0	44	夜の帳は今此処に PT	2	3	0
 5	0	45	#45 PT	1	2	0
 5	0	47	null PT	1	2	0
+5	0	48	#48 PT	0	0	0
 5	0	49	#49 PT	3	4	0
 5	0	50	#50 PT	1	1	0
 5	0	53	#53 PT	1	2	0
@@ -55,6 +64,7 @@ result_no	generate_no	party_no	name	member_num	battler_num	sook_num
 5	0	76	#76 PT	2	2	0
 5	0	77	#77 PT	1	1	0
 5	0	80	猫愛好家 PT	1	1	0
+5	0	81	#81 PT	0	0	0
 5	0	83	#83 PT	1	1	0
 5	0	85	殺意溢れるジャイアントヤマアラシ PT	1	2	0
 5	0	86	#86 PT	1	1	0
@@ -74,6 +84,7 @@ result_no	generate_no	party_no	name	member_num	battler_num	sook_num
 5	0	104	★妹の日記 PT	2	4	0
 5	0	105	#105 PT	1	1	0
 5	0	107	#107 PT	1	1	0
+5	0	108	冬の果実 PT	0	0	0
 5	0	109	ancient-mirrors PT	3	4	0
 5	0	110	悪役令嬢ご一行 PT	2	2	0
 5	0	111	#111 PT	1	2	0
@@ -88,6 +99,7 @@ result_no	generate_no	party_no	name	member_num	battler_num	sook_num
 5	0	124	蝶の使用人 PT	2	3	0
 5	0	125	作家のぶらり一人旅 PT	1	1	0
 5	0	126	刀人はぐれ旅 PT	1	1	0
+5	0	127	君の瞳に映る私にとびっきりの愛の言葉を囁いて PT	0	0	0
 5	0	128	サイエンティストと愛機 PT	1	1	0
 5	0	129	おっさんと不審者の珍道中 PT	2	2	0
 5	0	130	散策日和エブリデイ PT	3	4	0
@@ -107,6 +119,7 @@ result_no	generate_no	party_no	name	member_num	battler_num	sook_num
 5	0	151	オート三輪の荷台から見る空は広い PT	3	3	0
 5	0	155	#155 PT	1	1	0
 5	0	156	#156 PT	1	1	0
+5	0	157	まずは狩人！ PT	0	0	0
 5	0	158	#158 PT	1	1	0
 5	0	159	#159 PT	1	1	0
 5	0	160	#160 PT	1	1	0
@@ -126,6 +139,7 @@ result_no	generate_no	party_no	name	member_num	battler_num	sook_num
 5	0	191	仕方にゃいからにゃあの笹蒲鉾を分けてやるにゃ。 PT	4	5	0
 5	0	192	#192 PT	2	1	0
 5	0	194	魔王ちゃん様四天王別働隊 PT	2	2	0
+5	0	199	PT小鬼群 PT	0	0	0
 5	0	200	#200 PT	1	1	0
 5	0	201	#201 PT	1	1	0
 5	0	202	#202 PT	1	1	0

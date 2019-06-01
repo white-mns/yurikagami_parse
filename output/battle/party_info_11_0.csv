@@ -33,6 +33,7 @@ result_no	generate_no	party_no	name	member_num	battler_num	sook_num
 11	0	32	#32 PT	2	1	0
 11	0	33	#33 PT	1	5	0
 11	0	34	#34 PT	1	3	2
+11	0	35	#35 PT	0	0	0
 11	0	36	あっ、野生のボスがあらわれた！ PT	1	2	0
 11	0	37	癒し羽の手記 PT	1	4	0
 11	0	38	アーツチェイン PT	3	3	0
@@ -40,12 +41,14 @@ result_no	generate_no	party_no	name	member_num	battler_num	sook_num
 11	0	40	#40 PT	1	1	0
 11	0	41	#41 PT	1	4	2
 11	0	42	その胸は豊満である PT	3	3	0
+11	0	43	#43 PT	0	0	0
 11	0	44	夜の帳は今此処に PT	2	3	0
 11	0	45	#45 PT	2	4	0
 11	0	46	#46 PT	1	1	0
 11	0	47	#47 PT	1	2	0
 11	0	48	#48 PT	1	1	0
 11	0	49	ぱらぱらと消えていく PT	2	5	0
+11	0	50	#50 PT	1	0	0
 11	0	53	#53 PT	1	2	0
 11	0	54	#54 PT	1	1	0
 11	0	55	#55 PT	1	1	0
@@ -53,10 +56,12 @@ result_no	generate_no	party_no	name	member_num	battler_num	sook_num
 11	0	57	ないとめあばすたー PT	5	5	0
 11	0	58	#58 PT	1	1	0
 11	0	59	きつねのおさんぽ PT	1	1	0
+11	0	60	#60 PT	0	0	0
 11	0	65	#65 PT	1	1	0
 11	0	66	LRTunes+ PT	1	2	0
 11	0	68	#68 PT	3	3	0
 11	0	69	#69 PT	2	2	0
+11	0	71	#71 PT	0	0	0
 11	0	72	星のかけら PT	1	1	0
 11	0	74	#74 PT	1	2	0
 11	0	75	#75 PT	2	2	0
@@ -70,6 +75,7 @@ result_no	generate_no	party_no	name	member_num	battler_num	sook_num
 11	0	96	ワクワク百鬼夜行プラス PT	4	4	0
 11	0	97	#97 PT	1	1	0
 11	0	98	#98 PT	1	1	0
+11	0	99	隔離世界からの遠征軍 PT	0	0	0
 11	0	101	マカイヘンキョウポメラニアンマン PT	3	3	0
 11	0	102	紅い暴風 PT	1	1	0
 11	0	105	#105 PT	1	2	0
@@ -81,6 +87,7 @@ result_no	generate_no	party_no	name	member_num	battler_num	sook_num
 11	0	114	独歩 PT	1	1	0
 11	0	116	流されてトスナ大陸 PT	1	1	0
 11	0	117	小選挙区焼きマックス首都レンジュを襲う議員定数割れ PT	4	11	0
+11	0	118	スカヴェンジャーズ・キャラバン PT	0	0	0
 11	0	120	#120 PT	1	1	0
 11	0	124	シルクハットとおにぎり PT	1	2	0
 11	0	125	作家のぶらり一人旅 PT	1	1	0
@@ -116,10 +123,13 @@ result_no	generate_no	party_no	name	member_num	battler_num	sook_num
 11	0	190	#190 PT	1	1	0
 11	0	191	仕方にゃいからにゃあの笹蒲鉾を分けてやるにゃ。 PT	4	5	0
 11	0	194	魔王ちゃん様四天王別働隊 PT	3	3	0
+11	0	200	#200 PT	0	0	0
 11	0	201	#201 PT	3	3	0
 11	0	202	#202 PT	1	1	0
 11	0	203	The Lilia Scrolls:Nemui PT	1	1	0
 11	0	206	#206 PT	1	1	0
+11	0	207	手探り独り旅 PT	0	0	0
 11	0	208	#208 PT	1	1	0
 11	0	209	#209 PT	1	4	0
 11	0	212	#212 PT	1	2	1
+11	0	213	#213 PT	0	0	0
