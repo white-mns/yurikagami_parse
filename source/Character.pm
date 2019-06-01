@@ -121,6 +121,8 @@ sub ParsePage{
     #結果の読み込み
     my $content = "";
     $content = &IO::FileRead($file_name);
+    $content =~ s/&copy;/"©"/ge;
+    $content =~ s/&reg;/"®"/ge;
 
     if (!$content) { return;}
 
