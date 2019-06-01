@@ -1,5 +1,5 @@
 #===================================================================
-#        キャラステータス解析パッケージ
+#        戦闘結果解析パッケージ
 #-------------------------------------------------------------------
 #            (C) 2019 @white_mns
 #===================================================================
@@ -17,19 +17,16 @@ use source::lib::GetNode;
 require "./source/lib/IO.pm";
 require "./source/lib/time.pm";
 
-require "./source/chara/Name.pm";
-require "./source/chara/Profile.pm";
-require "./source/chara/Status.pm";
-require "./source/chara/Item.pm";
-require "./source/chara/Skill.pm";
-require "./source/data/LearnableSkill.pm";
+require "./source/battle/Party.pm";
+require "./source/battle/PartyInfo.pm";
+require "./source/battle/CurrentPlace.pm";
 
 use ConstData;        #定数呼び出し
 
 #------------------------------------------------------------------#
 #    パッケージの定義
 #------------------------------------------------------------------#
-package Character;
+package Battle;
 
 #-----------------------------------#
 #    コンストラクタ
@@ -54,12 +51,9 @@ sub Init{
     ($self->{ResultNo}, $self->{GenerateNo}, $self->{CommonDatas}) = @_;
 
     #インスタンス作成
-    if (ConstData::EXE_CHARA_NAME)           { $self->{DataHandlers}{Name}           = Name->new();}
-    if (ConstData::EXE_CHARA_PROFILE)        { $self->{DataHandlers}{Profile}        = Profile->new();}
-    if (ConstData::EXE_CHARA_STATUS)         { $self->{DataHandlers}{Status}         = Status->new();}
-    if (ConstData::EXE_CHARA_ITEM)           { $self->{DataHandlers}{Item}           = Item->new();}
-    if (ConstData::EXE_CHARA_SKILL)          { $self->{DataHandlers}{Skill}          = Skill->new();}
-    if (ConstData::EXE_DATA_LEARNABLE_SKILL) { $self->{DataHandlers}{LearnableSkill} = LearnableSkill->new();}
+    if (ConstData::EXE_BATTLE_PARTY)         {$self->{DataHandlers}{Party}        = Party->new();}
+    if (ConstData::EXE_BATTLE_PARTY_INFO)    {$self->{DataHandlers}{PartyInfo}    = PartyInfo->new();}
+    if (ConstData::EXE_BATTLE_CURRENT_PLACE) {$self->{DataHandlers}{CurrentPlace} = CurrentPlace->new();}
 
     #初期化処理
     foreach my $object( values %{ $self->{DataHandlers} } ) {
@@ -70,7 +64,7 @@ sub Init{
 }
 
 #-----------------------------------#
-#    圧縮結果から詳細データファイルを抽出
+#    圧縮結果から戦闘データファイルを抽出
 #-----------------------------------#
 #    
 #-----------------------------------#
@@ -84,7 +78,7 @@ sub Execute{
     my $directory = './data/utf/turn' . $self->{ResultNo} . '_' . $self->{GenerateNo};
     if (ConstData::EXE_ALLRESULT) {
         #結果全解析
-        $end = GetMaxFileNo($directory,"status");
+        $end = GetMaxFileNo($directory,"result");
 
     } else {
         #指定範囲解析
@@ -94,14 +88,10 @@ sub Execute{
 
     print "$start to $end\n";
 
-    for (my $e_no=$start; $e_no<=$end; $e_no++) {
-        if ($e_no % 10 == 0) {print $e_no . "\n"};
+    for (my $party_no=$start; $party_no<=$end; $party_no++) {
+        if($party_no % 10 == 0){print $party_no . "\n"};
 
-        $self->ParsePage($directory."/status".$e_no.".html",$e_no ,0);
-        # サブキャラの判定
-        for(my $f_no=1;$f_no<=3;$f_no++){
-            $self->ParsePage($directory."/status".$e_no."_".$f_no.".html",$e_no ,$f_no);
-        }
+        $self->ParsePage($directory."/result".$party_no.".html",$party_no );
     }
     
     return ;
@@ -110,13 +100,12 @@ sub Execute{
 #       ファイルを解析
 #-----------------------------------#
 #    引数｜ファイル名
-#    　　　ENo
+#    　　　パーティ番号
 ##-----------------------------------#
 sub ParsePage{
-    my $self        = shift;
-    my $file_name   = shift;
-    my $e_no        = shift;
-    my $f_no        = shift;
+    my $self      = shift;
+    my $file_name = shift;
+    my $party_no  = shift;
 
     #結果の読み込み
     my $content = "";
@@ -130,18 +119,15 @@ sub ParsePage{
     my $tree = HTML::TreeBuilder->new;
     $tree->parse($content);
 
-    my $stat_table_nodes  = &GetNode::GetNode_Tag_Attr("table", "class", "stat",  \$tree);
-    my $item_table_nodes  = &GetNode::GetNode_Tag_Attr("table", "class", "item",  \$tree);
-    my $skill_table_nodes = &GetNode::GetNode_Tag_Attr("table", "class", "skill", \$tree);
-    my $gskl_div_nodes    = &GetNode::GetNode_Tag_Attr("div",   "class", "gskl",  \$tree);
+    my $stat_table_nodes     = &GetNode::GetNode_Tag_Attr("table", "class", "stat",  \$tree);
+    my $h1_nodes             = &GetNode::GetNode_Tag("h1", \$tree);
+    my $bstat_table_nodes    = &GetNode::GetNode_Tag_Attr("table", "class", "bstat", \$tree);
+    my $map_div_nodes        = &GetNode::GetNode_Tag_Attr("div",   "class", "map",   \$tree);
     
     # データリスト取得
-    if (exists($self->{DataHandlers}{Name}))           {$self->{DataHandlers}{Name}->GetData          ($e_no, $f_no, $$stat_table_nodes[0])};
-    if (exists($self->{DataHandlers}{Profile}))        {$self->{DataHandlers}{Profile}->GetData       ($e_no, $f_no, $$stat_table_nodes[0])};
-    if (exists($self->{DataHandlers}{Status}))         {$self->{DataHandlers}{Status}->GetData        ($e_no, $f_no, $$stat_table_nodes[0])};
-    if (exists($self->{DataHandlers}{Item}))           {$self->{DataHandlers}{Item}->GetData          ($e_no, $f_no, $$item_table_nodes[0])};
-    if (exists($self->{DataHandlers}{Skill}))          {$self->{DataHandlers}{Skill}->GetData         ($e_no, $f_no, $$skill_table_nodes[1])};
-    if (exists($self->{DataHandlers}{LearnableSkill})) {$self->{DataHandlers}{LearnableSkill}->GetData($e_no, $f_no, $$gskl_div_nodes[0])};
+    if (exists($self->{DataHandlers}{Party}))        {$self->{DataHandlers}{Party}->GetData       ($party_no, $stat_table_nodes)};
+    if (exists($self->{DataHandlers}{PartyInfo}))    {$self->{DataHandlers}{PartyInfo}->GetData   ($party_no, $$h1_nodes[0], $$bstat_table_nodes[0])};
+    if (exists($self->{DataHandlers}{CurrentPlace})) {$self->{DataHandlers}{CurrentPlace}->GetData($party_no, $$map_div_nodes[0])};
 
     $tree = $tree->delete;
 }

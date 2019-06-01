@@ -41,20 +41,28 @@ sub Main {
         return;
     }
 
-    $result_no = sprintf ("%02d", $result_no);
-
     $upload->DBConnect();
     
     $upload->DeleteSameResult("uploaded_checks", $result_no, $generate_no);
 
     if (ConstData::EXE_DATA) {
-        &UploadData($upload, ConstData::EXE_DATA_PROPER_NAME,     "proper_names",    "./output/data/proper_name.csv");
+        &UploadData($upload, ConstData::EXE_DATA_PROPER_NAME,     "proper_names",     "./output/data/proper_name.csv");
+        &UploadData($upload, ConstData::EXE_DATA_SKILL_DATA,      "skill_data",       "./output/data/skill_data.csv");
+        &UploadData($upload, ConstData::EXE_DATA_LEARNABLE_SKILL, "learnable_skills", "./output/data/learnable_skill.csv");
     }
     if (ConstData::EXE_CHARA) {
-        &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_CHARA_NAME,              "names",               "./output/chara/name_");
-        &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_CHARA_PROFILE,           "profiles",            "./output/chara/profile_");
+        &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_CHARA_NAME,    "names",           "./output/chara/name_");
+        &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_CHARA_PROFILE, "profiles",        "./output/chara/profile_");
+        &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_CHARA_STATUS,  "statuses",        "./output/chara/status_");
+        &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_CHARA_ITEM,    "items",           "./output/chara/item_");
+        &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_CHARA_SKILL,   "skills",          "./output/chara/skill_");
     }
-        &UploadResult($upload, $result_no, $generate_no, 1,                                      "uploaded_checks",     "./output/etc/uploaded_check_");
+    if (ConstData::EXE_BATTLE) {
+        &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_BATTLE_PARTY,         "parties",         "./output/battle/party_");
+        &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_BATTLE_PARTY_INFO,    "party_infos",     "./output/battle/party_info_");
+        &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_BATTLE_CURRENT_PLACE, "current_places",  "./output/battle/current_place_");
+    }
+        &UploadResult($upload, $result_no, $generate_no, 1,                            "uploaded_checks", "./output/etc/uploaded_check_");
     print "result_no:$result_no,generate_no:$generate_no\n";
     return;
 }
