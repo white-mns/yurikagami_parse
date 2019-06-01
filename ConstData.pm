@@ -31,4 +31,5 @@ use warnings;
     use constant EXE_BATTLE         => 1;
         use constant EXE_BATTLE_PARTY         => 1;
         use constant EXE_BATTLE_PARTY_INFO    => 1;
+        use constant EXE_BATTLE_CURRENT_PLACE => 1;
 1;
