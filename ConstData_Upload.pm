@@ -28,6 +28,7 @@ use warnings;
         use constant EXE_CHARA_ITEM           => 1;
         use constant EXE_CHARA_SKILL          => 1;
     use constant EXE_BATTLE               => 1;
+        use constant EXE_BATTLE_PARTY         => 1;
     use constant EXE_NEW                  => 1;
 
 1;
