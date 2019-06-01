@@ -41,8 +41,6 @@ sub Main {
         return;
     }
 
-    $result_no = sprintf ("%02d", $result_no);
-
     $upload->DBConnect();
     
     $upload->DeleteSameResult("uploaded_checks", $result_no, $generate_no);
