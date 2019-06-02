@@ -36,7 +36,7 @@ ZIP_NAME=${RESULT_NO}_$GENERATE_NO
 #------------------------------------------------------------------
 # 圧縮結果をダウンロード。
 if [ ! -f ./data/orig/turn${ZIP_NAME}.zip ]; then
-    wget -O data/orig/turn${ZIP_NAME}.zip http://lisge.com/ib/k/turn${RESULT_NO}.zip
+    wget -O data/orig/turn${ZIP_NAME}.zip http://csyuki.sakura.ne.jp/cgi-bin/prism/result/turn${RESULT_NO}.zip
 fi
 
 # 圧縮結果ファイルを展開
