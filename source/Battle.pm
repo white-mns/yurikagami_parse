@@ -21,6 +21,7 @@ require "./source/battle/Party.pm";
 require "./source/battle/PartyInfo.pm";
 require "./source/battle/CurrentPlace.pm";
 require "./source/battle/ItemGet.pm";
+require "./source/battle/Enemy.pm";
 
 use ConstData;        #定数呼び出し
 
@@ -134,6 +135,7 @@ sub ParsePage{
     if (exists($self->{DataHandlers}{PartyInfo}))    {$self->{DataHandlers}{PartyInfo}->GetData   ($party_no, $$h1_nodes[0], $$bstat_table_nodes[0])};
     if (exists($self->{DataHandlers}{CurrentPlace})) {$self->{DataHandlers}{CurrentPlace}->GetData($party_no, $$map_div_nodes[0])};
     if (exists($self->{DataHandlers}{ItemGet}))      {$self->{DataHandlers}{ItemGet}->GetData     ($party_no, $item_get_div_nodes, $$quest_div_nodes[0])};
+    if (exists($self->{DataHandlers}{Enemy}))        {$self->{DataHandlers}{Enemy}->GetData       ($party_no, $bstat_table_nodes, $$quest_div_nodes[0])};
 
     $tree = $tree->delete;
 }

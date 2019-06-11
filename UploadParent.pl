@@ -51,24 +51,27 @@ sub Main {
         &UploadData($upload, ConstData::EXE_DATA_LEARNABLE_SKILL, "learnable_skills", "./output/data/learnable_skill.csv");
     }
     if (ConstData::EXE_CHARA) {
-        &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_CHARA_NAME,          "names",           "./output/chara/name_");
-        &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_CHARA_PROFILE,       "profiles",        "./output/chara/profile_");
-        &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_CHARA_STATUS,        "statuses",        "./output/chara/status_");
-        &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_CHARA_ITEM,          "items",           "./output/chara/item_");
-        &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_CHARA_SKILL,         "skills",          "./output/chara/skill_");
-        &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_CHARA_EVENT,         "events",          "./output/chara/event_");
-        &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_CHARA_EVENT_PROCEED, "event_proceeds",  "./output/chara/event_proceed_");
-        &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_CHARA_SEARCH,        "searches",        "./output/chara/search_");
+        &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_CHARA_NAME,              "names",             "./output/chara/name_");
+        &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_CHARA_PROFILE,           "profiles",          "./output/chara/profile_");
+        &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_CHARA_STATUS,            "statuses",          "./output/chara/status_");
+        &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_CHARA_ITEM,              "items",             "./output/chara/item_");
+        &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_CHARA_SKILL,             "skills",            "./output/chara/skill_");
+        &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_CHARA_EVENT,             "events",            "./output/chara/event_");
+        &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_CHARA_EVENT_PROCEED,     "event_proceeds",    "./output/chara/event_proceed_");
+        &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_CHARA_SEARCH,            "searches",          "./output/chara/search_");
     }
     if (ConstData::EXE_BATTLE) {
-        &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_BATTLE_PARTY,         "parties",         "./output/battle/party_");
-        &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_BATTLE_PARTY_INFO,    "party_infos",     "./output/battle/party_info_");
-        &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_BATTLE_CURRENT_PLACE, "current_places",  "./output/battle/current_place_");
-        &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_BATTLE_ITEM_GET,      "item_gets",       "./output/battle/item_get_");
+        &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_BATTLE_PARTY,            "parties",           "./output/battle/party_");
+        &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_BATTLE_PARTY_INFO,       "party_infos",       "./output/battle/party_info_");
+        &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_BATTLE_CURRENT_PLACE,    "current_places",    "./output/battle/current_place_");
+        &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_BATTLE_ITEM_GET,         "item_gets",         "./output/battle/item_get_");
+        &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_BATTLE_ENEMY_PARTY_INFO, "enemy_party_infos", "./output/battle/enemy_party_info_");
+        &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_BATTLE_ENEMY,            "enemies",           "./output/battle/enemy_");
     }
     if (ConstData::EXE_NEW) {
-        &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_NEW_EVENT,            "new_events",         "./output/new/event_");
-        &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_NEW_PLACE,            "new_places",         "./output/new/place_");
+        &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_NEW_EVENT,               "new_events",        "./output/new/event_");
+        &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_NEW_PLACE,               "new_places",        "./output/new/place_");
+        &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_NEW_ENEMY,               "new_enemies",       "./output/new/enemy_");
     }
         &UploadResult($upload, $result_no, $generate_no, 1,                            "uploaded_checks", "./output/etc/uploaded_check_");
     print "result_no:$result_no,generate_no:$generate_no\n";
