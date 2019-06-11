@@ -58,6 +58,7 @@ sub Main {
         &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_CHARA_SKILL,         "skills",          "./output/chara/skill_");
         &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_CHARA_EVENT,         "events",          "./output/chara/event_");
         &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_CHARA_EVENT_PROCEED, "event_proceeds",  "./output/chara/event_proceed_");
+        &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_CHARA_SEARCH,        "searches",        "./output/chara/search_");
     }
     if (ConstData::EXE_BATTLE) {
         &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_BATTLE_PARTY,         "parties",         "./output/battle/party_");
