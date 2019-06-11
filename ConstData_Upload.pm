@@ -35,6 +35,7 @@ use warnings;
         use constant EXE_BATTLE_CURRENT_PLACE => 1;
     use constant EXE_NEW         => 1;
         use constant EXE_NEW_EVENT            => 1;
+        use constant EXE_NEW_PLACE            => 1;
     use constant EXE_NEW                  => 1;
 
 1;

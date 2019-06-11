@@ -66,6 +66,7 @@ sub Main {
     }
     if (ConstData::EXE_NEW) {
         &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_NEW_EVENT,            "new_events",         "./output/new/event_");
+        &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_NEW_PLACE,            "new_places",         "./output/new/place_");
     }
         &UploadResult($upload, $result_no, $generate_no, 1,                            "uploaded_checks", "./output/etc/uploaded_check_");
     print "result_no:$result_no,generate_no:$generate_no\n";
