@@ -50,9 +50,9 @@ sub Init{
                 "generate_no",
                 "e_no",
                 "sub_no",
-                "event",
-                "flag",
-                "text",
+                "event_id",
+                "flag_id",
+                "text_id",
     ];
     $self->{Datas}{EventFlag}->Init($header_list);
     $self->{Datas}{EventFlag}->SetOutputName( "./output/chara/event_" . $self->{ResultNo} . "_" . $self->{GenerateNo} . ".csv" );
@@ -62,9 +62,9 @@ sub Init{
                 "generate_no",
                 "e_no",
                 "sub_no",
-                "event",
-                "last_flag",
-                "flag",
+                "event_id",
+                "last_flag_id",
+                "flag_id",
     ];
     $self->{Datas}{EventProceed}->Init($header_list);
     $self->{Datas}{EventProceed}->SetOutputName( "./output/chara/event_proceed_" . $self->{ResultNo} . "_" . $self->{GenerateNo} . ".csv" );
@@ -72,8 +72,8 @@ sub Init{
     $header_list = [
                 "result_no",
                 "generate_no",
-                "event",
-                "flag",
+                "event_id",
+                "flag_id",
     ];
     $self->{Datas}{NewEvent}->Init($header_list);
     $self->{Datas}{NewEvent}->SetOutputName( "./output/new/event_" . $self->{ResultNo} . "_" . $self->{GenerateNo} . ".csv" );
@@ -154,62 +154,66 @@ sub ReadLastNewData(){
 #-----------------------------------#
 #    データ取得
 #------------------------------------
-#    引数｜e_no,サブキャラ番号,ステータステーブルノード
+#    引数｜e_no,サブキャラ番号,イベントノード
 #-----------------------------------#
 sub GetData{
     my $self    = shift;
     my $e_no    = shift;
     my $sub_no  = shift;
-    my $stat_table_node = shift;
+    my $evnt_div_node = shift;
+    
+    if($sub_no > 0) {return;} # サブキャラにイベント情報はないため処理しない
     
     $self->{ENo} = $e_no;
     $self->{SubNo} = $sub_no;
 
-    $self->GetProfileData($stat_table_node);
+    $self->GetEventData($evnt_div_node);
     
     return;
 }
 #-----------------------------------#
-#    プロフィールデータ取得
+#    イベントデータ取得
 #------------------------------------
-#    引数｜ステータステーブルノード
+#    引数｜イベントノード
 #-----------------------------------#
-sub GetProfileData{
+sub GetEventData{
     my $self  = shift;
-    my $stat_table_node = shift;
-    my ($nickname, $title, $job, $sex, $age, $height, $weight) = ("", "", "", "", "", "", "");
+    my $evnt_div_node = shift;
 
-    my $sttitle_nodes  = &GetNode::GetNode_Tag_Attr("td", "class", "sttitle", \$stat_table_node);
-    my $div_post_nodes = &GetNode::GetNode_Tag_Attr("div","class", "post",    \$$sttitle_nodes[0]);
-    my $th_nodes       = &GetNode::GetNode_Tag("th", \$stat_table_node);
+    my $event_table_nodes = &GetNode::GetNode_Tag_Attr("table", "class", "event", \$evnt_div_node);
+    my $tr_nodes = &GetNode::GetNode_Tag("tr", \$$event_table_nodes[0]);
+    shift(@$tr_nodes);
    
-    if(@$div_post_nodes){
-        $title = $$div_post_nodes[0]->as_text;
+    foreach my $tr_node (@$tr_nodes){
+        # イベント情報の取得
+        my @td_nodes = $tr_node->content_list();
+        my ($event, $flag, $text) = (0,0);
+
+        if(scalar(@td_nodes) < 3){ next;}
+
+        $event = $self->{CommonDatas}{ProperName}->GetOrAddId($td_nodes[0]->as_text);
+        $flag  = $self->{CommonDatas}{ProperName}->GetOrAddId($td_nodes[1]->as_text);
+        $text  = $self->{CommonDatas}{ProperName}->GetOrAddId($td_nodes[2]->as_text);
+        
+        my @datas=($self->{ResultNo}, $self->{GenerateNo}, $self->{ENo}, $self->{SubNo}, $event, $flag, $text);
+        $self->{Datas}{EventFlag}->AddData(join(ConstData::SPLIT, @datas));
+
+        # イベント変更点の取得
+        my $last_flag = exists($self->{LastData}{$self->{ENo}}{$event}) ? $self->{LastData}{$self->{ENo}}{$event} : 0;
+
+        if($last_flag != $flag){
+            my @datas=($self->{ResultNo}, $self->{GenerateNo}, $self->{ENo}, $self->{SubNo}, $event, $last_flag, $flag);
+            $self->{Datas}{EventProceed}->AddData(join(ConstData::SPLIT, @datas));
+        }
+        
+        # 新出イベント状況の取得
+        if(!exists($self->{AllEvent}{$event."_".$flag})){
+            my @new_data = ($self->{ResultNo}, $self->{GenerateNo}, $event, $flag);
+            $self->{Datas}{NewEvent}->AddData(join(ConstData::SPLIT, @new_data));
+
+            $self->{AllEvent}{$event."_".$flag} = [$self->{ResultNo}, $self->{GenerateNo}, $event, $flag];
+        }
     }
-
-    foreach my $th_node (@$th_nodes){
-		my $text = $th_node->as_text;
-		
-        if($text eq "通名"){
-			$nickname = $th_node->right->as_text;
-		}elsif($text eq "職業"){
-			$job = $th_node->right->as_text;
-		}elsif($text eq "性別"){
-			$sex = $th_node->right->as_text;
-		}elsif($text eq "年齢"){
-			$age = $th_node->right->as_text;
-		}elsif($text eq "身長"){
-			$height = $th_node->right->as_text;
-		}elsif($text eq "体重"){
-			$weight = $th_node->right->as_text;
-		}
-	}
-
-    $self->{Datas}{Data}->AddData(join(ConstData::SPLIT, ($self->{ResultNo}, $self->{GenerateNo}, $self->{ENo}, $self->{SubNo}, $nickname, $title, $job, $sex, $age, $height, $weight) ));
-
-    # 戦闘時、ボスフラグ込での人数を出すために、通り名とボスフラグ込人数を共通変数で記録する(ボスフラグの有無はスキル一覧で改めて取得する)
-    $self->{CommonDatas}{NickName}{$self->{ENo}}{$self->{SubNo}} = $nickname;
-    $self->{CommonDatas}{Battler}{$self->{ENo}}{$nickname} = 1;
 
     return;
 }
