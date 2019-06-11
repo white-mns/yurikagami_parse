@@ -34,4 +34,6 @@ use warnings;
         use constant EXE_BATTLE_PARTY         => 1;
         use constant EXE_BATTLE_PARTY_INFO    => 1;
         use constant EXE_BATTLE_CURRENT_PLACE => 1;
+        use constant EXE_BATTLE_ITEM_GET      => 1;
+        use constant EXE_BATTLE_ENEMY         => 1;
 1;

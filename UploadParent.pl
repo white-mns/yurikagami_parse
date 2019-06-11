@@ -64,6 +64,7 @@ sub Main {
         &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_BATTLE_PARTY,         "parties",         "./output/battle/party_");
         &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_BATTLE_PARTY_INFO,    "party_infos",     "./output/battle/party_info_");
         &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_BATTLE_CURRENT_PLACE, "current_places",  "./output/battle/current_place_");
+        &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_BATTLE_ITEM_GET,      "item_gets",       "./output/battle/item_get_");
     }
     if (ConstData::EXE_NEW) {
         &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_NEW_EVENT,            "new_events",         "./output/new/event_");
