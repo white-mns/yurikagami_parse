@@ -22,6 +22,8 @@ require "./source/chara/Profile.pm";
 require "./source/chara/Status.pm";
 require "./source/chara/Item.pm";
 require "./source/chara/Skill.pm";
+require "./source/chara/Event.pm";
+require "./source/chara/Search.pm";
 require "./source/data/LearnableSkill.pm";
 
 use ConstData;        #定数呼び出し
@@ -59,6 +61,8 @@ sub Init{
     if (ConstData::EXE_CHARA_STATUS)         { $self->{DataHandlers}{Status}         = Status->new();}
     if (ConstData::EXE_CHARA_ITEM)           { $self->{DataHandlers}{Item}           = Item->new();}
     if (ConstData::EXE_CHARA_SKILL)          { $self->{DataHandlers}{Skill}          = Skill->new();}
+    if (ConstData::EXE_CHARA_EVENT)          { $self->{DataHandlers}{Event}          = Event->new();}
+    if (ConstData::EXE_CHARA_SEARCH)         { $self->{DataHandlers}{Search}         = Search->new();}
     if (ConstData::EXE_DATA_LEARNABLE_SKILL) { $self->{DataHandlers}{LearnableSkill} = LearnableSkill->new();}
 
     #初期化処理
@@ -134,6 +138,8 @@ sub ParsePage{
     my $item_table_nodes  = &GetNode::GetNode_Tag_Attr("table", "class", "item",  \$tree);
     my $skill_table_nodes = &GetNode::GetNode_Tag_Attr("table", "class", "skill", \$tree);
     my $gskl_div_nodes    = &GetNode::GetNode_Tag_Attr("div",   "class", "gskl",  \$tree);
+    my $evnt_div_nodes    = &GetNode::GetNode_Tag_Attr("div",   "class", "evnt",  \$tree);
+    my $event_div_nodes   = &GetNode::GetNode_Tag_Attr("div",   "class", "event", \$tree);
     
     # データリスト取得
     if (exists($self->{DataHandlers}{Name}))           {$self->{DataHandlers}{Name}->GetData          ($e_no, $f_no, $$stat_table_nodes[0])};
@@ -141,6 +147,8 @@ sub ParsePage{
     if (exists($self->{DataHandlers}{Status}))         {$self->{DataHandlers}{Status}->GetData        ($e_no, $f_no, $$stat_table_nodes[0])};
     if (exists($self->{DataHandlers}{Item}))           {$self->{DataHandlers}{Item}->GetData          ($e_no, $f_no, $$item_table_nodes[0])};
     if (exists($self->{DataHandlers}{Skill}))          {$self->{DataHandlers}{Skill}->GetData         ($e_no, $f_no, $$skill_table_nodes[1])};
+    if (exists($self->{DataHandlers}{Event}))          {$self->{DataHandlers}{Event}->GetData         ($e_no, $f_no, $$evnt_div_nodes[0])};
+    if (exists($self->{DataHandlers}{Search}))         {$self->{DataHandlers}{Search}->GetData        ($e_no, $f_no, $event_div_nodes)};
     if (exists($self->{DataHandlers}{LearnableSkill})) {$self->{DataHandlers}{LearnableSkill}->GetData($e_no, $f_no, $$gskl_div_nodes[0])};
 
     $tree = $tree->delete;
@@ -161,8 +169,7 @@ sub GetMaxFileNo{
 
     my $max= 0;
     foreach (@fileList) {
-        $_ =~ /$prefix(\d+).html/;
-        if ($max < $1) {$max = $1;}
+        if ($_ =~ /$prefix(\d+).html/ && $max < $1) {$max = $1;}
     }
     return $max
 }

@@ -20,6 +20,9 @@ require "./source/lib/time.pm";
 require "./source/battle/Party.pm";
 require "./source/battle/PartyInfo.pm";
 require "./source/battle/CurrentPlace.pm";
+require "./source/battle/ItemGet.pm";
+require "./source/battle/Enemy.pm";
+require "./source/battle/BattleResult.pm";
 
 use ConstData;        #定数呼び出し
 
@@ -54,6 +57,9 @@ sub Init{
     if (ConstData::EXE_BATTLE_PARTY)         {$self->{DataHandlers}{Party}        = Party->new();}
     if (ConstData::EXE_BATTLE_PARTY_INFO)    {$self->{DataHandlers}{PartyInfo}    = PartyInfo->new();}
     if (ConstData::EXE_BATTLE_CURRENT_PLACE) {$self->{DataHandlers}{CurrentPlace} = CurrentPlace->new();}
+    if (ConstData::EXE_BATTLE_ITEM_GET)      {$self->{DataHandlers}{ItemGet}      = ItemGet->new();}
+    if (ConstData::EXE_BATTLE_ENEMY)         {$self->{DataHandlers}{Enemy}        = Enemy->new();}
+    if (ConstData::EXE_BATTLE_RESULT)        {$self->{DataHandlers}{BattleResult} = BattleResult->new();}
 
     #初期化処理
     foreach my $object( values %{ $self->{DataHandlers} } ) {
@@ -123,11 +129,18 @@ sub ParsePage{
     my $h1_nodes             = &GetNode::GetNode_Tag("h1", \$tree);
     my $bstat_table_nodes    = &GetNode::GetNode_Tag_Attr("table", "class", "bstat", \$tree);
     my $map_div_nodes        = &GetNode::GetNode_Tag_Attr("div",   "class", "map",   \$tree);
+    my $quest_div_nodes      = &GetNode::GetNode_Tag_Attr("div",   "class", "quest", \$tree);
+    my $item_get_div_nodes   = &GetNode::GetNode_Tag_Attr("div",   "class", "item get", \$tree);
+    my $finish_div_nodes     = &GetNode::GetNode_Tag_Attr("div",   "class", "finish", \$tree);
+    my $battle_div_nodes     = &GetNode::GetNode_Tag_Attr("div",   "class", "battle", \$tree);
     
     # データリスト取得
     if (exists($self->{DataHandlers}{Party}))        {$self->{DataHandlers}{Party}->GetData       ($party_no, $stat_table_nodes)};
     if (exists($self->{DataHandlers}{PartyInfo}))    {$self->{DataHandlers}{PartyInfo}->GetData   ($party_no, $$h1_nodes[0], $$bstat_table_nodes[0])};
     if (exists($self->{DataHandlers}{CurrentPlace})) {$self->{DataHandlers}{CurrentPlace}->GetData($party_no, $$map_div_nodes[0])};
+    if (exists($self->{DataHandlers}{ItemGet}))      {$self->{DataHandlers}{ItemGet}->GetData     ($party_no, $item_get_div_nodes, $$quest_div_nodes[0])};
+    if (exists($self->{DataHandlers}{Enemy}))        {$self->{DataHandlers}{Enemy}->GetData       ($party_no, $bstat_table_nodes, $$quest_div_nodes[0])};
+    if (exists($self->{DataHandlers}{BattleResult})) {$self->{DataHandlers}{BattleResult}->GetData($party_no, $$finish_div_nodes[0], $$battle_div_nodes[0], $$quest_div_nodes[0])};
 
     $tree = $tree->delete;
 }

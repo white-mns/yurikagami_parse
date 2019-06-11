@@ -58,7 +58,7 @@ sub Init{
     $header_list = [
                 "result_no",
                 "generate_no",
-                "place",
+                "place_id",
     ];
     $self->{Datas}{NewPlace}->Init($header_list);
     $self->{Datas}{NewPlace}->SetOutputName( "./output/new/place_" . $self->{ResultNo} . "_" . $self->{GenerateNo} . ".csv" );
