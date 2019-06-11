@@ -161,8 +161,7 @@ sub GetMaxFileNo{
 
     my $max= 0;
     foreach (@fileList) {
-        $_ =~ /$prefix(\d+).html/;
-        if ($max < $1) {$max = $1;}
+        if ($_ =~ /$prefix(\d+).html/ && $max < $1) {$max = $1;}
     }
     return $max
 }
