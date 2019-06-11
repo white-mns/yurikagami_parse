@@ -89,14 +89,14 @@ sub Init{
 #-----------------------------------#
 #    前回のデータを読み込む
 #-----------------------------------#
-sub ReadLastData(){
+sub ReadLastData{
     my $self      = shift;
     
     my $file_name = "";
     # 前回結果の確定版ファイルを探索
-    for (my $i=5; $i>=0; $i--){
+    for (my $i=5; $i>=0; $i--) {
         $file_name = "./output/chara/event_" . ($self->{ResultNo} - 1) . "_" . $i . ".csv" ;
-        if(-f $file_name) {last;}
+        if (-f $file_name) {last;}
     }
     
     #既存データの読み込み
@@ -105,7 +105,7 @@ sub ReadLastData(){
     my @file_data = split(/\n/, $content);
     shift (@file_data);
     
-    foreach my  $data_set(@file_data){
+    foreach my  $data_set(@file_data) {
         my $last_datas = []; 
         @$last_datas   = split(ConstData::SPLIT, $data_set);
 
@@ -122,14 +122,14 @@ sub ReadLastData(){
 #-----------------------------------#
 #    既存データを読み込む
 #-----------------------------------#
-sub ReadLastNewData(){
+sub ReadLastNewData{
     my $self      = shift;
     
     my $file_name = "";
     # 前回結果の確定版ファイルを探索
-    for (my $i=5; $i>=0; $i--){
+    for (my $i=5; $i>=0; $i--) {
         $file_name = "./output/new/all_event_" . ($self->{ResultNo} - 1) . "_" . $i . ".csv" ;
-        if(-f $file_name) {last;}
+        if (-f $file_name) {last;}
     }
     
     #既存データの読み込み
@@ -138,12 +138,12 @@ sub ReadLastNewData(){
     my @file_data = split(/\n/, $content);
     shift (@file_data);
     
-    foreach my  $data_set(@file_data){
+    foreach my  $data_set(@file_data) {
         my $new_event_datas = []; 
         @$new_event_datas   = split(ConstData::SPLIT, $data_set);
         my $event = $$new_event_datas[2];
         my $flag = $$new_event_datas[3];
-        if(!exists($self->{AllEvent}{$event."_".$flag})){
+        if (!exists($self->{AllEvent}{$event."_".$flag})) {
             $self->{AllEvent}{$event."_".$flag} = [$self->{ResultNo}, $self->{GenerateNo}, $event, $flag];
         }
     }
@@ -162,7 +162,7 @@ sub GetData{
     my $sub_no  = shift;
     my $evnt_div_node = shift;
     
-    if($sub_no > 0) {return;} # サブキャラにイベント情報はないため処理しない
+    if ($sub_no > 0) {return;} # サブキャラにイベント情報はないため処理しない
     
     $self->{ENo} = $e_no;
     $self->{SubNo} = $sub_no;
@@ -184,12 +184,12 @@ sub GetEventData{
     my $tr_nodes = &GetNode::GetNode_Tag("tr", \$$event_table_nodes[0]);
     shift(@$tr_nodes);
    
-    foreach my $tr_node (@$tr_nodes){
+    foreach my $tr_node (@$tr_nodes) {
         # イベント情報の取得
         my @td_nodes = $tr_node->content_list();
         my ($event, $flag, $text) = (0,0);
 
-        if(scalar(@td_nodes) < 3){ next;}
+        if (scalar(@td_nodes) < 3) { next;}
 
         $event = $self->{CommonDatas}{ProperName}->GetOrAddId($td_nodes[0]->as_text);
         $flag  = $self->{CommonDatas}{ProperName}->GetOrAddId($td_nodes[1]->as_text);
@@ -201,13 +201,13 @@ sub GetEventData{
         # イベント変更点の取得
         my $last_flag = exists($self->{LastData}{$self->{ENo}}{$event}) ? $self->{LastData}{$self->{ENo}}{$event} : 0;
 
-        if($last_flag != $flag){
+        if ($last_flag != $flag) {
             my @datas=($self->{ResultNo}, $self->{GenerateNo}, $self->{ENo}, $self->{SubNo}, $event, $last_flag, $flag);
             $self->{Datas}{EventProceed}->AddData(join(ConstData::SPLIT, @datas));
         }
         
         # 新出イベント状況の取得
-        if(!exists($self->{AllEvent}{$event."_".$flag})){
+        if (!exists($self->{AllEvent}{$event."_".$flag})) {
             my @new_data = ($self->{ResultNo}, $self->{GenerateNo}, $event, $flag);
             $self->{Datas}{NewEvent}->AddData(join(ConstData::SPLIT, @new_data));
 
