@@ -58,6 +58,9 @@ sub Init{
     
     #出力ファイル設定
     $self->{Datas}{Search}->SetOutputName( "./output/chara/search_" . $self->{ResultNo} . "_" . $self->{GenerateNo} . ".csv" );
+
+    $self->ReadLastData();
+
     return;
 }
 
@@ -146,10 +149,9 @@ sub GetSearchData{
 
                 }
                 
-                my @datas=($self->{ResultNo}, $self->{GenerateNo}, $self->{LastResultNo}, $self->{LastGenerateNo}, $self->{ENo}, $self->{SubNo}, $main_no, $get_i_no, $i_name, $value);
-                $self->{Datas}{Search}->AddData(join(ConstData::SPLIT, @datas));
+                $self->{Datas}{Search}->AddData(join(ConstData::SPLIT, ($self->{ResultNo}, $self->{GenerateNo}, $self->{LastResultNo}, $self->{LastGenerateNo}, $self->{ENo}, $self->{SubNo}, $main_no, $get_i_no, $i_name, $value) ));
 
-            } elsif($child !~ /HASH/) {
+            } elsif ($child !~ /HASH/) {
                 # Lemの取得・喪失時の解析
                 if ($child =~ /(\d+)Lem を入手した。/) {
                     $value = $1;
@@ -157,6 +159,7 @@ sub GetSearchData{
                 } elsif($child =~ /(\d+)Lem を落とした！/) {
                     $value = $1+0;
                     $value *= -1;
+
                 } elsif($child =~ /何も見つけられなかった。/) {
                     $value = 0;
                 }
@@ -165,8 +168,7 @@ sub GetSearchData{
                     next;
                 }
 
-                my @datas=($self->{ResultNo}, $self->{GenerateNo}, $self->{LastResultNo}, $self->{LastGenerateNo}, $self->{ENo}, $self->{SubNo}, $main_no, $get_i_no, $i_name, $value);
-                $self->{Datas}{Search}->AddData(join(ConstData::SPLIT, @datas));
+                $self->{Datas}{Search}->AddData(join(ConstData::SPLIT, ($self->{ResultNo}, $self->{GenerateNo}, $self->{LastResultNo}, $self->{LastGenerateNo}, $self->{ENo}, $self->{SubNo}, $main_no, $get_i_no, $i_name, $value) ));
 
             } else {
                 if ($child->tag eq "br" || $child->tag eq "h2") {next;}
@@ -175,8 +177,7 @@ sub GetSearchData{
                 print $child->tag . "/" . $child->as_text . "\n";
                 $value = $child->as_text;
                 
-                my @datas=($self->{ResultNo}, $self->{GenerateNo}, $self->{ENo}, $self->{SubNo}, $main_no, $get_i_no, $i_name, $value);
-                $self->{Datas}{Search}->AddData(join(ConstData::SPLIT, @datas));
+                $self->{Datas}{Search}->AddData(join(ConstData::SPLIT, ($self->{ResultNo}, $self->{GenerateNo}, $self->{ENo}, $self->{SubNo}, $main_no, $get_i_no, $i_name, $value) ));
             }
         }
     }

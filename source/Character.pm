@@ -141,6 +141,8 @@ sub ParsePage{
     my $evnt_div_nodes    = &GetNode::GetNode_Tag_Attr("div",   "class", "evnt",  \$tree);
     my $event_div_nodes   = &GetNode::GetNode_Tag_Attr("div",   "class", "event", \$tree);
     
+    if (!scalar(@$stat_table_nodes)) {return;}
+    
     # データリスト取得
     if (exists($self->{DataHandlers}{Name}))           {$self->{DataHandlers}{Name}->GetData          ($e_no, $f_no, $$stat_table_nodes[0])};
     if (exists($self->{DataHandlers}{Profile}))        {$self->{DataHandlers}{Profile}->GetData       ($e_no, $f_no, $$stat_table_nodes[0])};
