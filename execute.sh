@@ -79,4 +79,6 @@ if [ -f ./data/orig/turn${ZIP_NAME}.zip ]; then
  
 fi
 
+./data/www/_re_expansion.sh $RESULT_NO
+
 cd $CURENT  #元のディレクトリに戻る
