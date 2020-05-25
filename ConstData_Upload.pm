@@ -38,6 +38,7 @@ use warnings;
         use constant EXE_BATTLE_ENEMY_PARTY_INFO => 1;
         use constant EXE_BATTLE_ENEMY            => 1;
         use constant EXE_BATTLE_RESULT           => 1;
+        use constant EXE_BATTLE_SMITH            => 1;
     use constant EXE_NEW                  => 1;
         use constant EXE_NEW_EVENT               => 1;
         use constant EXE_NEW_PLACE               => 1;
