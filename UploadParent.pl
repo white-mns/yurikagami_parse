@@ -68,6 +68,7 @@ sub Main {
         &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_BATTLE_ENEMY_PARTY_INFO, "enemy_party_infos", "./output/battle/enemy_party_info_");
         &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_BATTLE_ENEMY,            "enemies",           "./output/battle/enemy_");
         &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_BATTLE_RESULT,           "battle_results",    "./output/battle/battle_result_");
+        &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_BATTLE_SMITH,            "smiths",            "./output/battle/smith_");
     }
     if (ConstData::EXE_NEW) {
         &UploadResult($upload, $result_no, $generate_no, ConstData::EXE_NEW_EVENT,               "new_events",        "./output/new/event_");
