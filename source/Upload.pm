@@ -126,17 +126,14 @@ sub InsertDB{
     my $insert_data = shift;
     my $table_name  = shift;
     
-    eval {
-        $self->{DBI}->insert($insert_data, table     => $table_name);
-    };
+    $self->{DBI}->insert($insert_data, table     => $table_name, bulk_insert => 1);
+
     if ( $@ ){
         if ( DBI::errstr &&  DBI::errstr =~ "for key 'PRIMARY'" ){
             my $errMes = "[一意制約]\n";
-            from_to($errMes, 'UTF8', 'cp932');
             print $errMes;
         } else {
             my $errMes = "$@";
-            from_to($errMes, 'UTF8', 'cp932');
             die $errMes;
         }
     }
