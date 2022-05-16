@@ -6,10 +6,6 @@
 
 package TimeChecker;
 use Cwd;
-use DateTime;
-use DateTime::Format::HTTP;
-use DateTime::Format::DateParse;
-use DateTime::TimeZone;
 use Encode 'from_to';
 
 # コンストラクタ
